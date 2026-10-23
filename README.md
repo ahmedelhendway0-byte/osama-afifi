@@ -9,6 +9,13 @@
 | السيستم | https://ahmedelhendway0-byte.github.io/osama-afifi/ |
 | دخول المستر والأسيستنت | https://ahmedelhendway0-byte.github.io/osama-afifi/#login-staff |
 | دخول الطلاب وأولياء الأمور | https://ahmedelhendway0-byte.github.io/osama-afifi/#login-family |
+| العرض وطريقة الاستخدام | https://ahmedelhendway0-byte.github.io/osama-afifi/presentation/ |
+| صفحة العميل | https://ahmedelhendway0-byte.github.io/hindawy/osama-afifi/ |
+| شيت لايف (كل 10 دقايق) | https://docs.google.com/spreadsheets/d/1UvWJfRt6B9Tf7hKWn97yk-Vg_FYprZkIGWDAGLsY8o4/edit |
+
+## شيت جوجل
+الكود في `sheets/Code.gs` (Apps Script ← اتعمل له setup). فاضل بعد ما المستر يعمل الإعداد:
+المستر ← الإعدادات ← البيانات ← «مفتاح شيت جوجل» ← يتحط في تاب «الإعدادات» خانة B2 ← شغّل `refresh` مرة.
 
 ## الدخول
 - **المستر:** «المستر والأسيستنت» ← «مستر» ← الباسورد (بيتعمل في خطوات الإعداد أول مرة).

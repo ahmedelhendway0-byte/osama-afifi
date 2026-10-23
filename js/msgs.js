@@ -8,6 +8,8 @@ const TT = {
 };
 const Msg = {
   sig() { return 'مستر ' + DB.teacher.name + ' — English'; },
+  // رابط تطبيق الطلاب وأولياء الأمور
+  famUrl() { return location.origin + location.pathname.replace(/(family\/)?(index\.html)?$/, '') + 'family/'; },
   first: s => s.name.split(' ')[0],
   hi(s, to) { return to === 's' ? 'أهلاً يا ' + Msg.first(s) : 'السلام عليكم ' + (s.parentName ? 'أ/ ' + s.parentName : 'ولي أمر الطالب ' + s.name); },
   report(code, o) {
@@ -40,7 +42,7 @@ const Msg = {
   },
   level(code, to, cat) { const s = Store.student(code), c = cat || Store.cat(code); return TT[c][to === 's' ? 0 : 1].replace('{n}', to === 's' ? Msg.first(s) : s.name) + '\n\n' + Msg.sig(); },
   custom(code, text, to) { const s = Store.student(code); return text ? Msg.hi(s, to) + '\n' + text + '\n\n' + Msg.sig() : ''; },
-  login(code, to) { const s = Store.student(code); return Msg.hi(s, to) + '\nبوابة الطالب وولي الأمر — مستر ' + DB.teacher.name + ':\n' + location.origin + location.pathname + '#login-family\nكود الطالب: ' + s.code + '\nالرقم السري: ' + s.pin + '\nهتلاقوا فيها الدرجات والحضور ورسايل المستر.\n\n' + Msg.sig(); },
+  login(code, to) { const s = Store.student(code); return Msg.hi(s, to) + '\nبوابة الطالب وولي الأمر — مستر ' + DB.teacher.name + ':\n' + Msg.famUrl() + '\nكود الطالب: ' + s.code + '\nالرقم السري: ' + s.pin + '\nهتلاقوا فيها الدرجات والحضور ورسايل المستر.\n\n' + Msg.sig(); },
   times(code, to) { const s = Store.student(code), g = Store.group(s.g); return Msg.hi(s, to) + '\nمواعيد مجموعة ' + Store.gFull(g) + ':\n' + g.slots.map(x => '• ' + x.day + ' من ' + U.t12(x.from) + ' لـ ' + U.t12(x.to)).join('\n') + '\n📍 ' + g.place + '\n\n' + Msg.sig(); },
 
   targets(s, to) { const r = []; if (to !== 's' && s.parentPhone) r.push(['p', 'ولي الأمر', s.parentPhone]); if (to !== 'p' && s.phone && !(to === 'b' && s.same)) r.push(['s', 'الطالب', s.phone]); return r; },

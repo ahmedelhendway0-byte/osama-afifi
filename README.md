@@ -7,8 +7,8 @@
 | | الرابط |
 |---|---|
 | السيستم | https://ahmedelhendway0-byte.github.io/osama-afifi/ |
-| دخول المستر والأسيستنت | https://ahmedelhendway0-byte.github.io/osama-afifi/#login-staff |
-| دخول الطلاب وأولياء الأمور | https://ahmedelhendway0-byte.github.io/osama-afifi/#login-family |
+| دخول المستر والأسيستنت | https://ahmedelhendway0-byte.github.io/osama-afifi/ |
+| دخول الطلاب وأولياء الأمور | https://ahmedelhendway0-byte.github.io/osama-afifi/family/ |
 | العرض وطريقة الاستخدام | https://ahmedelhendway0-byte.github.io/osama-afifi/presentation/ |
 | صفحة العميل | https://ahmedelhendway0-byte.github.io/hindawy/osama-afifi/ |
 | شيت لايف (كل 10 دقايق) | https://docs.google.com/spreadsheets/d/1UvWJfRt6B9Tf7hKWn97yk-Vg_FYprZkIGWDAGLsY8o4/edit |

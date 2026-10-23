@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>أيقونات التطبيق</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&display=swap" rel="stylesheet">
+<style>body{background:#DDE3E8;font-family:Cairo,sans-serif;padding:20px}canvas{margin:8px;border-radius:12px;box-shadow:0 4px 14px #0002;width:128px;height:128px}</style>
+</head>
+<body>
+<h3>أيقونات التطبيق (بتتعمل من هنا وبتتحفظ في icons/)</h3>
+<div id="out"></div>
+<script>
+// بيرسم أيقونات التطبيق بلوجو OA ويحفظها PNG في icons/ (من السيرفر المحلي tools/serve.py)
+const AUB = '#3A0F34', GOLD = '#EAAA00', SILVER = '#DDE3E8';
+const P = {
+  shield: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',
+  users: 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0-8 0M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75',
+  check: 'M9 11l3 3L22 4',
+};
+function logo(x, S, scale, bg, fam) {
+  // خلفية: بنفسجي للمستر، أصفر لتطبيق الطلاب
+  x.fillStyle = fam ? GOLD : AUB; x.fillRect(0, 0, S, S);
+  const glow = x.createRadialGradient(S * .15, S * .95, 0, S * .15, S * .95, S * .75);
+  glow.addColorStop(0, '#eaaa0040'); glow.addColorStop(1, '#eaaa0000'); x.fillStyle = glow; x.fillRect(0, 0, S, S);
+  // OA
+  const f = S * .42 * scale; x.font = '900 ' + f + 'px "Playfair Display"'; x.textBaseline = 'alphabetic'; x.direction = 'ltr';
+  const wO = x.measureText('O').width, wA = x.measureText('A').width, w = wO + wA, sx = (S - w) / 2, by = S / 2 + f * .33;
+  x.fillStyle = fam ? AUB : '#fff'; x.fillText('O', sx, by); x.fillStyle = fam ? '#fff' : GOLD; x.fillText('A', sx + wO, by);
+  // الخط اللي تحت
+  const lw = S * .26 * scale, lh = Math.max(3, S * .032 * scale); x.fillStyle = fam ? AUB : GOLD;
+  x.beginPath(); x.roundRect((S - lw) / 2, by + f * .16, lw, lh, lh / 2); x.fill();
+}
+function glyph(x, S, d, bg, fg) {
+  x.fillStyle = bg; x.fillRect(0, 0, S, S);
+  x.save(); const k = S * .5 / 24; x.translate(S * .25, S * .25); x.scale(k, k);
+  x.strokeStyle = fg; x.lineWidth = 2.2; x.lineCap = 'round'; x.lineJoin = 'round'; x.stroke(new Path2D(d)); x.restore();
+}
+function make(name, S, draw, round) {
+  const c = document.createElement('canvas'); c.width = c.height = S; const x = c.getContext('2d');
+  if (round) { x.beginPath(); x.roundRect(0, 0, S, S, S * .22); x.clip(); }
+  draw(x, S); document.getElementById('out').appendChild(c);
+  return new Promise(ok => c.toBlob(b => fetch('../icons/' + name, { method: 'PUT', body: b }).then(r => ok(name + ':' + r.status)), 'image/png'));
+}
+document.fonts.load('900 100px "Playfair Display"').then(async () => {
+  const res = await Promise.all([
+    make('icon-192.png', 192, (x, S) => logo(x, S, 1), true),
+    make('icon-512.png', 512, (x, S) => logo(x, S, 1), true),
+    make('maskable-512.png', 512, (x, S) => logo(x, S, .8)),        // أندرويد بيقص الحواف — اللوجو جوه منطقة الأمان
+    make('apple-180.png', 180, (x, S) => logo(x, S, 1)),            // الآيفون بيدوّر الحواف لوحده
+    make('favicon-48.png', 48, (x, S) => logo(x, S, 1.05), true),
+    make('fam-192.png', 192, (x, S) => logo(x, S, 1, 0, 1), true),
+    make('fam-512.png', 512, (x, S) => logo(x, S, 1, 0, 1), true),
+    make('fam-maskable-512.png', 512, (x, S) => logo(x, S, .8, 0, 1)),
+    make('fam-apple-180.png', 180, (x, S) => logo(x, S, 1, 0, 1)),
+  ]);
+  document.title = 'done'; window.done = res;
+});
+</script>
+</body>
+</html>

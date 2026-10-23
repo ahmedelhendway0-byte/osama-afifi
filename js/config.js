@@ -9,3 +9,7 @@ window.OA_CONFIG = {
   /* كل كام ثانية السيستم يجيب آخر تحديث من الداتابيز */
   PULL_SECONDS: 45,
 };
+/* أنهي تطبيق: "staff" (المستر والأسيستنت) أو "family" (الطلاب وأولياء الأمور — family/index.html بيحددها قبل الملف ده).
+   كل تطبيق بيفتكر الدخول بتاعه لوحده، والبيانات واحدة. */
+window.OA_APP = window.OA_APP || 'staff';
+window.OA_SFX = window.OA_APP === 'family' ? '_fam' : '';

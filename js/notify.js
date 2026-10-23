@@ -47,7 +47,7 @@ const N = {
   async show(title, body, tag) {
     try {
       const reg = 'serviceWorker' in navigator && await navigator.serviceWorker.getRegistration();
-      const o = { body, tag: tag || 'oa', icon: 'icon.svg', badge: 'icon.svg', lang: 'ar', dir: 'rtl' };
+      const o = { body, tag: tag || 'oa', icon: (FAMILY ? '../icons/fam-192.png' : 'icons/icon-192.png'), badge: (FAMILY ? '../icons/fam-192.png' : 'icons/icon-192.png'), lang: 'ar', dir: 'rtl' };
       if (reg) reg.showNotification(title, o); else new Notification(title, o);
     } catch (e) { }
   },
@@ -61,7 +61,7 @@ const N = {
     else fresh.reverse().forEach(x => N.show(x.t, x.b, x.k));
   },
   init() {
-    if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) navigator.serviceWorker.register('sw.js').catch(() => { });
+    if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) navigator.serviceWorker.register((FAMILY ? '../' : '') + 'sw.js').catch(() => { });
     setInterval(N.check, 60000);
     document.addEventListener('visibilitychange', () => { if (!document.hidden) N.check(); });
   },

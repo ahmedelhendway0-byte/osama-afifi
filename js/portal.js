@@ -18,6 +18,7 @@ V.portal = () => {
     h += '<div class="panel">' + (g && g.payMode === 'month' ? '<div class="hist">' + ms.map(m => { const p = Store.sub(kid.code, m); return '<span class="' + (p ? '' : 'a') + '"><b>' + U.MONTHS[+m.slice(5) - 1] + '</b>' + (p ? 'مدفوع' : 'مش مدفوع') + '</span>'; }).join('') + '</div>' : '') +
       '<div class="ln" style="margin-top:10px"><span>' + (g && g.payMode === 'month' ? 'الاشتراك الشهري' : 'سعر الحصة') + '</span><b>' + U.money(g ? Store.gPrice(g) : 0) + '</b></div>' + (db ? '<div class="ln"><span>عليه</span><b>' + U.money(db) + '</b></div>' : '') + '</div>';
   }
+  h += Inst.btn();
   h += '<details class="panel" style="margin-top:16px"><summary class="fw" style="cursor:pointer">' + I('key', 'sm') + ' تغيير الرقم السري</summary><p class="mu fw sm">الرقم السري ده بيدخل بيه الطالب وولي الأمر الاتنين — لو غيّرته عرّف التاني.</p><form id="ppf" class="row2" style="align-items:end" onsubmit="event.preventDefault();V.ppw()"><input class="in ltr" name="pw" type="password" inputmode="numeric" placeholder="الرقم السري الجديد" minlength="4"><button class="btn aub">حفظ</button></form></details>';
   return h;
 };

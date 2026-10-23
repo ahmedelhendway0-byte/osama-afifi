@@ -1,6 +1,7 @@
 // الهيكل العام: الدخول، القوائم، التنقل بين الشاشات
 const V = {}; // كل شاشة دالة بترجع HTML
-const SES_KEY = /[?&]demo=1(&|$)/.test(location.search) ? 'oa_ses_demo' : window.Sync && Sync.live ? 'oa_ses_live' : 'oa_ses_v1';
+const SES_KEY = (/[?&]demo=1(&|$)/.test(location.search) ? 'oa_ses_demo' : window.Sync && Sync.live ? 'oa_ses_live' : 'oa_ses_v1') + OA_SFX;
+const FAMILY = OA_APP === 'family';
 
 const App = {
   ses: null,   // {role: teacher | assistant | student | parent, id}
@@ -12,8 +13,10 @@ const App = {
     Store.load();
     if (Demo.on) Demo.boot();
     // رابط دخول لقسم معين: #login-staff (المستر والأسيستنت) أو #login-family (الطلاب وأولياء الأمور)
-    const lr = location.hash.match(/^#login-(staff|family|teacher|assistant|student|parent)$/);
-    if (lr) { App.st.lr = /teacher|assistant/.test(lr[1]) ? 'staff' : /student|parent/.test(lr[1]) ? 'family' : lr[1]; history.replaceState(null, '', location.pathname + location.search); }
+    // الروابط القديمة للطلاب (#login-family) بتروح على تطبيق الطلاب
+    if (!FAMILY && !Demo.on && /^#login-(family|student|parent)$/.test(location.hash)) { location.replace('family/'); return; }
+    if (/^#login-/.test(location.hash)) history.replaceState(null, '', location.pathname + location.search);
+    App.st.lr = FAMILY ? 'family' : 'staff';
     if (window.Sync) Sync.boot();
     N.init();
     if (App.ses && (!App.valid() || (Sync.live && !Sync.token()))) App.ses = null;
@@ -22,6 +25,7 @@ const App = {
   },
   valid() {
     const s = App.ses; if (!DB || !s) return false;
+    if (!Demo.on && FAMILY !== (s.role === 'student' || s.role === 'parent')) return false; // كل تطبيق لأدواره بس
     if (s.role === 'teacher') return true;
     if (s.role === 'assistant') return !!Store.asst(s.id);
     if (s.role === 'student') return !!Store.student(s.id);
@@ -47,12 +51,12 @@ const App = {
 
   go(view) {
     U.close(true);
-    const lr = (view || '').match(/^login-(staff|family)$/);
-    if (lr) { App.st.lr = lr[1]; view = ''; history.replaceState(null, '', location.pathname + location.search); }
+    if (/^login-/.test(view || '')) { view = ''; history.replaceState(null, '', location.pathname + location.search); }
+    App.st.lr = FAMILY ? 'family' : 'staff';
     if (Sync.live && !App.ses) {
       // أونلاين: لو المستر لسه ماعملش الإعداد يبقى خطوات الإعداد، غير كده الدخول
       if (Sync.ready === null) { App.paint('<div class="login"><div class="lbox"><div class="logo big"><div class="mr">MR.</div><div class="nm">Osama Afifi</div><div class="lgl"></div><div class="sb">ENGLISH · PREP 1 · 2 · 3</div></div></div></div>'); Sync.status().then(() => App.go(view)); return; }
-      if (!Sync.ready) { if (DB && !DB.ready) { App.paint(Wiz.render()); Wiz.after(); } else App.paint(V.welcome()); return; }
+      if (!Sync.ready && !FAMILY) { if (DB && !DB.ready) { App.paint(Wiz.render()); Wiz.after(); } else App.paint(V.welcome()); return; }
       App.paint(V.login()); return;
     }
     if (!DB && !Sync.live) { App.paint(V.welcome()); return; }
@@ -135,14 +139,32 @@ V.login = () => {
   const R = { staff: ['shield', 'المستر والأسيستنت'], family: ['users', 'الطلاب وأولياء الأمور'] };
   const who = sec === 'staff' ? [['teacher', 'مستر'], ['assistant', 'أسيستنت']] : [['parent', 'ولي أمر'], ['student', 'طالب']];
   return '<div class="login"><div class="lbox"><div class="logo big"><div class="mr">MR.</div><div class="nm">Osama Afifi</div><div class="lgl"></div><div class="sb">ENGLISH · PREP 1 · 2 · 3</div></div>' +
-    '<div class="lcard"><div class="roles two">' + Object.entries(R).map(([k, v]) => '<button class="' + (k === sec ? 'on' : '') + '" onclick="App.st.lr=\'' + k + '\';App.paint(V.login())">' + I(v[0]) + v[1] + '</button>').join('') + '</div>' +
+    '<div class="lcard"><div class="sec-t">' + I(R[sec][0]) + R[sec][1] + '</div>' +
     '<form id="lf" onsubmit="event.preventDefault();App.login()"><label class="f" style="margin-top:0">إنت مين؟</label>' +
     U.seg(who, r, "v=>{App.st." + (sec === 'staff' ? 'ls' : 'lf') + "=v;App.paint(V.login());document.querySelector('#lf input').focus()}", 'gd') +
     (sec === 'family' ? '<label class="f">كود الطالب</label><input class="in big ltr" name="u" inputmode="numeric" placeholder="1001" autocomplete="username" required>' : '') +
     '<label class="f">' + (sec === 'family' ? 'الرقم السري' : 'الباسورد') + '</label><input class="in big ltr" name="p" type="password" inputmode="' + (sec === 'family' ? 'numeric' : 'text') + '" autocomplete="current-password" required>' +
     '<p class="hint">' + (sec === 'family' ? 'الكود والرقم السري بيوصلوك من المستر. كل طالب ليه رقم سري مختلف.' : r === 'teacher' ? 'باسورد المستر.' : 'الباسورد اللي المستر إداهولك.') + '</p>' +
-    '<button class="btn aub wide" style="margin-top:18px">دخول ' + I('go') + '</button></form></div><div class="pw-foot">POWERED BY HINDAWY</div></div></div>';
+    '<button class="btn aub wide" style="margin-top:18px">دخول ' + I('go') + '</button></form>' + Inst.btn() + '</div><div class="pw-foot">POWERED BY HINDAWY</div></div></div>';
 };
+
+// ======================= تثبيت التطبيق على الموبايل =======================
+const Inst = {
+  ev: null,
+  standalone() { return matchMedia('(display-mode: standalone)').matches || navigator.standalone === true; },
+  ios() { return /iphone|ipad|ipod/i.test(navigator.userAgent); },
+  name() { return FAMILY ? 'Osama Afifi · Students' : 'Osama Afifi'; },
+  // الزرار بيظهر بس لو التطبيق مش متثبّت
+  btn(cls) { return Inst.standalone() || (!Inst.ev && !Inst.ios() && !/android/i.test(navigator.userAgent)) ? '' : '<button class="btn soft wide inst ' + (cls || '') + '" style="margin-top:10px" onclick="Inst.go()">' + I('download', 'sm') + 'ثبّت التطبيق على الموبايل</button>'; },
+  async go() {
+    if (Inst.ev) { Inst.ev.prompt(); const r = await Inst.ev.userChoice; if (r.outcome === 'accepted') { Inst.ev = null; U.toast('اتثبّت — هتلاقيه على الشاشة الرئيسية'); document.querySelectorAll('.inst').forEach(e => e.remove()); } return; }
+    const st = Inst.ios()
+      ? ['دوس زرار <b>المشاركة</b> ⬆️ تحت في Safari', 'انزل واختار <b>Add to Home Screen</b> (إضافة إلى الشاشة الرئيسية)', 'دوس <b>Add</b> — الأيقونة هتظهر على الشاشة الرئيسية']
+      : ['دوس على <b>⋮</b> فوق في Chrome', 'اختار <b>Install app</b> أو <b>Add to Home screen</b>', 'دوس <b>Install</b> — الأيقونة هتظهر على الشاشة الرئيسية'];
+    U.modal('<h3>ثبّت «' + Inst.name() + '»</h3>' + (Inst.ios() ? '<p class="mu fw sm">لازم تفتح الرابط من <b>Safari</b>.</p>' : '') + '<div class="info">' + st.map((t, i) => '<div><span>' + (i + 1) + '</span><b style="flex:1;text-align:right;font-weight:700">' + t + '</b></div>').join('') + '</div><button class="btn aub wide" onclick="U.close()">تمام</button>');
+  },
+};
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); Inst.ev = e; if (!App.ses) App.go(''); });
 
 // أول مرة خالص على الجهاز ده
 V.welcome = () => '<div class="wiz"><div class="wiz-b" style="padding-top:40px"><div class="hero-logo"><div class="logo big"><div class="mr">MR.</div><div class="nm">Osama Afifi</div><div class="lgl"></div><div class="sb">ENGLISH · PREP 1 · 2 · 3</div></div></div>' +

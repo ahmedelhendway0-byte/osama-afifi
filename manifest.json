@@ -1,11 +1,19 @@
 {
+  "id": "./",
   "name": "Mr. Osama Afifi",
   "short_name": "Osama Afifi",
+  "description": "سيستم مستر أسامة عفيفي — المستر والأسيستنت",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
+  "orientation": "portrait",
   "dir": "rtl",
   "lang": "ar",
   "background_color": "#3A0F34",
   "theme_color": "#3A0F34",
-  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
 }

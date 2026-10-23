@@ -1,6 +1,6 @@
 // طبقة البيانات: كل القراءة والكتابة بتعدي من هنا (مدرس واحد: مستر أسامة).
 // التخزين على الجهاز (localStorage)، ولما Supabase يتربط sync.js بيبعت التعديلات أونلاين.
-const DB_KEY = /[?&]demo=1(&|$)/.test(location.search) ? 'oa_db_demo' : window.Sync && Sync.live ? 'oa_db_live' : 'oa_db_v1';
+const DB_KEY = (/[?&]demo=1(&|$)/.test(location.search) ? 'oa_db_demo' : window.Sync && Sync.live ? 'oa_db_live' : 'oa_db_v1') + OA_SFX;
 let DB = null;
 
 const GRADES = ['أولى إعدادي', 'تانية إعدادي', 'تالتة إعدادي'];

@@ -6,7 +6,7 @@
 window.Sync = (() => {
   const C = window.OA_CONFIG || {};
   const live = !!(C.SUPABASE_URL && C.SUPABASE_KEY) && !/[?&](local|demo)=1(&|$)/.test(location.search);
-  const TK = 'oa_live_token', SNAP = 'oa_live_snap';
+  const TK = 'oa_live_token' + (window.OA_SFX || ''), SNAP = 'oa_live_snap' + (window.OA_SFX || '');
   let snap = null, timer = null, busy = false, state = 'ok', pullTimer = null;
   const files = {};
 

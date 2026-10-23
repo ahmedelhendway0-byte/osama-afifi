@@ -26,7 +26,7 @@ const SET = {
   async resetA(user) { const pw = Store.newAsstPw(); if (await Store.setPw('assistant', user, pw)) { App.render(); SET.showA(user, 'باسورد جديد'); } },
   // بيانات دخول الأسيستنت + زرار يبعتها واتساب
   showA(user, title) {
-    const a = Store.asst(user), txt = 'أهلاً ' + a.name + '\nبيانات دخولك على سيستم مستر ' + DB.teacher.name + ':\n' + location.origin + location.pathname + '#login-staff\nاختار «أسيستنت» واكتب الباسورد: ' + a.pw;
+    const a = Store.asst(user), txt = 'أهلاً ' + a.name + '\nبيانات دخولك على سيستم مستر ' + DB.teacher.name + ':\n' + location.origin + location.pathname + '\nاختار «أسيستنت» واكتب الباسورد: ' + a.pw;
     U.modal('<h3>' + U.esc(title) + '</h3><div class="info"><div><span>الدخول</span><b>المستر والأسيستنت ← أسيستنت</b></div><div><span>الباسورد</span><b class="ltr" style="font-size:22px;letter-spacing:3px">' + a.pw + '</b></div></div>' +
       '<div class="row2">' + (a.phone ? '<a class="btn gold" target="_blank" rel="noopener" href="' + U.wa(a.phone, txt) + '">' + I('wa') + 'ابعتهاله</a>' : '<span></span>') + '<button class="btn aub" onclick="U.close()">تمام</button></div>');
   },
@@ -41,7 +41,7 @@ const SET = {
     r.readAsText(f); inp.value = '';
   },
   reset() { U.confirm('مسح كل البيانات؟', 'هيتمسح كل الطلاب والحضور والدرجات والفلوس من الجهاز ده. نزّل نسخة احتياطية الأول.', 'امسح كله', () => { Store.wipe(); App.setSes(null); location.hash = ''; location.reload(); }); },
-  link(r) { const u = location.origin + location.pathname + '#login-' + r; navigator.clipboard && navigator.clipboard.writeText(u).then(() => U.toast('الرابط اتنسخ')); },
+  link(r) { const u = r === 'family' ? Msg.famUrl() : location.origin + location.pathname; navigator.clipboard && navigator.clipboard.writeText(u).then(() => U.toast('الرابط اتنسخ')); },
 };
 
 V.settings = () => {
@@ -63,7 +63,7 @@ V.settings = () => {
     '<div class="panel" style="--i:3"><div class="ph"><h2>' + I('pin') + 'الأماكن</h2><button class="btn gold sm" onclick="SET.addPlace()">' + I('plus', 'sm') + 'مكان</button></div>' + DB.places.map((x, i) => '<div class="ln"><b>' + U.esc(x) + '</b><span class="btns"><span class="mu sm">' + DB.groups.filter(g => g.place === x).length + ' مجموعة</span><button class="btn soft ic" onclick="SET.renPlace(' + i + ')">' + I('edit', 'sm') + '</button><button class="btn soft ic" onclick="SET.delPlace(' + i + ')">' + I('trash', 'sm') + '</button></span></div>').join('') +
     '<p class="mu fw sm" style="margin:10px 0 0">مواعيد وأسعار المجموعات بتتعدّل من <a href="#groups">المجموعات</a>.</p></div>' +
     '<div class="panel" style="--i:4"><div class="ph"><h2>' + I('exam') + 'الدرجات الافتراضية</h2></div><form id="dff" class="row3" style="align-items:end" onsubmit="event.preventDefault();SET.defs()"><div><label class="f" style="margin-top:0">الكويز من</label><input class="in num" name="qzMax" type="number" min="1" value="' + DB.defaults.qzMax + '"></div><div><label class="f" style="margin-top:0">الامتحان من</label><input class="in num" name="exMax" type="number" min="1" value="' + DB.defaults.exMax + '"></div><button class="btn soft">حفظ</button></form></div>' +
-    '<div class="panel" style="--i:5"><div class="ph"><h2>' + I('link') + 'روابط الدخول</h2></div><p class="mu fw sm" style="margin-top:0">رابطين بس: واحد ليك وللأسيستنت، وواحد للطلاب وأولياء الأمور. الرقم السري لكل طالب في ملفه، وتقدر تبعته لأولياء الأمور كلهم مرة واحدة من «الرسايل ← واتساب ← بيانات الدخول».</p><div class="btns"><button class="btn soft sm" onclick="SET.link(\'staff\')">' + I('shield', 'sm') + 'رابط المستر والأسيستنت</button><button class="btn soft sm" onclick="SET.link(\'family\')">' + I('users', 'sm') + 'رابط الطلاب وأولياء الأمور</button></div></div>' +
+    '<div class="panel" style="--i:5"><div class="ph"><h2>' + I('link') + 'روابط الدخول</h2></div><p class="mu fw sm" style="margin-top:0">رابطين بس: واحد ليك وللأسيستنت، وواحد للطلاب وأولياء الأمور. الرقم السري لكل طالب في ملفه، وتقدر تبعته لأولياء الأمور كلهم مرة واحدة من «الرسايل ← واتساب ← بيانات الدخول».</p><div class="btns"><button class="btn soft sm" onclick="SET.link(\'staff\')">' + I('shield', 'sm') + 'رابط المستر والأسيستنت</button><button class="btn soft sm" onclick="SET.link(\'family\')">' + I('users', 'sm') + 'رابط الطلاب وأولياء الأمور</button></div>' + Inst.btn() + '</div>' +
     '<div class="panel" style="--i:6"><div class="ph"><h2>' + I('save') + 'البيانات</h2></div><div class="btns"><button class="btn soft sm" onclick="SET.backup()">' + I('download', 'sm') + 'نسخة احتياطية</button><label class="btn soft sm" style="position:relative;overflow:hidden">' + I('upload', 'sm') + 'ترجيع نسخة<input type="file" accept=".json" style="position:absolute;inset:0;opacity:0" onchange="SET.restore(this)"></label>' +
     (window.Sync && Sync.live ? '' : '<button class="btn soft sm" onclick="SET.reset()">' + I('trash', 'sm') + 'مسح كل البيانات</button>') + '</div>' + (window.Sync ? Sync.panel() : '') + '</div></div></div>';
 };

@@ -1,6 +1,6 @@
 // الهيكل العام: الدخول، القوائم، التنقل بين الشاشات
 const V = {}; // كل شاشة دالة بترجع HTML
-const SES_KEY = window.Sync && Sync.live ? 'oa_ses_live' : 'oa_ses_v1';
+const SES_KEY = /[?&]demo=1(&|$)/.test(location.search) ? 'oa_ses_demo' : window.Sync && Sync.live ? 'oa_ses_live' : 'oa_ses_v1';
 
 const App = {
   ses: null,   // {role: teacher | assistant | student | parent, id}
@@ -10,6 +10,7 @@ const App = {
   init() {
     try { App.ses = JSON.parse(localStorage.getItem(SES_KEY)); } catch (e) { App.ses = null; }
     Store.load();
+    if (Demo.on) Demo.boot();
     // رابط دخول لقسم معين: #login-staff (المستر والأسيستنت) أو #login-family (الطلاب وأولياء الأمور)
     const lr = location.hash.match(/^#login-(staff|family|teacher|assistant|student|parent)$/);
     if (lr) { App.st.lr = /teacher|assistant/.test(lr[1]) ? 'staff' : /student|parent/.test(lr[1]) ? 'family' : lr[1]; history.replaceState(null, '', location.pathname + location.search); }

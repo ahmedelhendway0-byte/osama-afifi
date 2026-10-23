@@ -2,7 +2,7 @@
 // - الطالب وولي الأمر: رسايل المستر، الدرجات، الحضور والغياب، الدفع
 // - المستر والأسيستنت: اللي التاني سجّله (طالب جديد، تسجيل حصة، امتحان، دفع، رسالة)
 const N = {
-  me() { const s = App.ses; return s ? s.role + '_' + s.id : ''; },
+  me() { const s = App.ses; return s ? (/[?&]demo=1(&|$)/.test(location.search) ? 'demo_' : '') + s.role + '_' + s.id : ''; },
   get(k) { try { return localStorage.getItem('oa_' + k + '_' + N.me()) || ''; } catch (e) { return ''; } },
   put(k, v) { try { localStorage.setItem('oa_' + k + '_' + N.me(), v); } catch (e) { } },
   feed() {

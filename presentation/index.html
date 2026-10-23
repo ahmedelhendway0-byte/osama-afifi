@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#3A0F34">
+<title>Mr. Osama Afifi — العرض وطريقة الاستخدام</title>
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800;900&family=Playfair+Display:wght@900&display=swap">
+<style>
+/* Layout: شاشة بنفسجي بملء الشاشة، مشهد واحد كل مرة (الميزة + «إزاي تستخدمها» + شكلها)، وتحت شريط فصول بيتداس عليه */
+:root{
+  --aub:#3A0F34;--aub2:#4a1844;--aub3:#5b2655;--line:#ffffff1c;
+  --chalk:#f3f0f2;--dim:#cbbfc8;--gold:#EAAA00;--silver:#DDE3E8;
+  --ar:Cairo,Tahoma,sans-serif;--en:'Playfair Display',Georgia,serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--aub);color:var(--chalk);font-family:var(--ar);font-weight:700;overflow:hidden;
+  background-image:radial-gradient(700px 400px at 0% 100%,#eaaa0024,transparent 60%),radial-gradient(600px 400px at 100% 0%,#ffffff0a,transparent 60%)}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.app{height:100%;display:grid;grid-template-rows:auto 1fr auto;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
+
+/* شريط فوق */
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:12px}
+.mini{direction:ltr;font-family:var(--en);font-weight:900;font-size:19px;white-space:nowrap}.mini em{font-style:normal;color:var(--gold)}
+.chap{display:flex;align-items:center;gap:10px;min-width:0;font-size:14px}
+.chap .n{font-size:11px;color:var(--aub);background:var(--gold);border-radius:7px;padding:2px 8px}
+.chap b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:720px){.chap{display:none}}
+.ctrls{display:flex;gap:6px;align-items:center}
+.ctrls button{background:var(--aub2);border:1px solid var(--line);border-radius:12px;padding:8px 12px;display:flex;align-items:center;gap:6px;font-size:14px}
+.ctrls button:hover{border-color:var(--gold)}
+.count{font-size:12px;color:var(--dim);min-width:46px;text-align:center}
+
+/* المسرح */
+.stage{position:relative;min-height:0}
+.scene{position:absolute;inset:0;display:none;align-items:center;justify-content:center;overflow-y:auto;padding-block:6px 14px}
+.scene.on{display:flex}
+.wrap{width:100%;max-width:1140px;display:grid;gap:28px;align-items:center;margin:auto}
+.two{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+@media(max-width:860px){.two{grid-template-columns:1fr;gap:18px}.scene{align-items:flex-start}}
+.copy{display:grid;gap:14px;min-width:0}
+.eyebrow{font-size:13px;letter-spacing:.08em;color:var(--gold);display:flex;align-items:center;gap:8px}
+.eyebrow:before{content:'';width:26px;height:3px;border-radius:3px;background:var(--gold)}
+h1,h2{margin:0;font-weight:900;line-height:1.25;text-wrap:balance}
+h1{font-size:clamp(38px,7vw,82px)}
+h2{font-size:clamp(28px,4.2vw,50px)}
+.hl{color:var(--gold)}
+.lead{font-size:clamp(15px,1.7vw,19px);line-height:1.85;color:var(--dim);margin:0;font-weight:600;max-width:56ch}
+
+/* إزاي تستخدمها */
+.how{background:#ffffff0d;border:1px solid var(--line);border-radius:20px;padding:14px 16px;display:grid;gap:8px}
+.how>b{font-size:14px;color:var(--gold);display:flex;align-items:center;gap:6px}
+.how ol{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:8px}
+.how li{counter-increment:s;position:relative;padding-inline-start:36px;font-size:15px;line-height:1.75;font-weight:600}
+.how li:before{content:counter(s);position:absolute;inset-inline-start:0;top:1px;width:26px;height:26px;border-radius:9px;background:var(--gold);color:var(--aub);display:grid;place-items:center;font-size:13px;font-weight:900}
+.how li b{color:#fff}
+.how .tip{font-size:13px;color:var(--dim);font-weight:600;border-top:1px dashed var(--line);padding-top:8px}
+.demo{justify-self:start;display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:var(--aub);border:0;border-radius:14px;padding:12px 20px;font-weight:900;font-size:16px;animation:pulse 2.4s infinite}
+.demo:hover{transform:translateY(-2px)}
+.demo small{font-weight:700;opacity:.75;font-size:12px}
+.demos{display:flex;flex-wrap:wrap;gap:10px}
+.demo.ghost{background:transparent;color:var(--gold);box-shadow:inset 0 0 0 2px var(--gold);animation:none}
+@keyframes pulse{50%{box-shadow:0 0 0 10px #eaaa0000}0%{box-shadow:0 0 0 0 #eaaa0066}}
+
+/* حركات الدخول */
+.scene.on .a{animation:rise .7s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--d,0) * 1s)}
+.scene.on .how li{animation:rise .5s cubic-bezier(.2,.8,.2,1) both}
+.scene.on .how li:nth-child(1){animation-delay:.7s}.scene.on .how li:nth-child(2){animation-delay:.95s}.scene.on .how li:nth-child(3){animation-delay:1.2s}.scene.on .how li:nth-child(4){animation-delay:1.45s}.scene.on .how li:nth-child(5){animation-delay:1.7s}.scene.on .how li:nth-child(6){animation-delay:1.95s}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}}
+@keyframes pop{0%{opacity:0;transform:scale(.7)}70%{transform:scale(1.05)}}
+@keyframes grow{from{transform:scaleY(0)}}
+@keyframes type{to{width:4.2ch}}
+@keyframes caret{50%{border-color:transparent}}
+
+/* الموبايل (شكل الشاشة) */
+.phone{justify-self:center;width:min(340px,100%);background:#120510;border-radius:38px;padding:10px;box-shadow:0 30px 70px #0009}
+.scr{background:var(--silver);color:var(--aub);border-radius:30px;overflow:hidden;display:grid;align-content:start;min-height:440px;position:relative}
+.ph-h{background:var(--aub);color:#fff;padding:16px 16px 14px;border-radius:0 0 22px 22px;display:flex;justify-content:space-between;align-items:center;font-size:15px}
+.ph-b{padding:12px;display:grid;gap:8px}
+.card{background:#fff;border-radius:16px;padding:10px 12px;box-shadow:0 3px 10px #3a0f3412;display:grid;gap:6px;font-size:13px}
+.card .t{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.card .t b{font-size:14px}
+.card small{color:#7a6577;font-weight:600;font-size:11px}
+.btns{display:flex;gap:6px}
+.bt{flex:1;text-align:center;border-radius:11px;padding:8px 0;font-size:12px;font-weight:900;background:#3a0f340d;color:#7a6577}
+.bt.p{background:var(--aub);color:#fff}.bt.a{background:var(--gold);color:var(--aub)}
+.bt.q{flex:.9;border:2px dashed #3a0f3433;background:#fff;color:var(--aub)}
+.tag{display:inline-block;font-size:11px;border-radius:99px;padding:2px 9px;background:#3a0f340d;font-weight:900;white-space:nowrap}
+.tag.a{background:var(--aub);color:#fff}.tag.g{background:var(--gold);color:var(--aub)}
+.srch{border:2px solid var(--aub);background:#fff;border-radius:14px;padding:10px 12px;font-size:15px;display:flex;align-items:center;gap:8px;direction:ltr;justify-content:flex-end}
+.typed{display:inline-block;overflow:hidden;white-space:nowrap;width:0;border-inline-end:2px solid var(--aub)}
+.scene.on .typed{animation:type 1.2s steps(4) .6s forwards,caret .8s step-end infinite}
+.save{background:var(--gold);color:var(--aub);border-radius:14px;padding:11px;text-align:center;font-weight:900;font-size:14px}
+.stamp{justify-self:center;font-size:20px;color:var(--aub);border:3px solid var(--aub);border-radius:12px;padding:2px 14px;transform:rotate(-6deg);background:#fff}
+.scene.on .stamp{animation:pop .5s both;animation-delay:2.2s}
+.fld{background:#fff;border-radius:12px;padding:8px 12px;font-size:11px;color:#7a6577}
+.fld b{display:block;color:var(--aub);font-size:14px}
+.chk{background:var(--gold);border-radius:12px;padding:9px 12px;font-size:12px;font-weight:900;display:flex;gap:8px;align-items:center}
+.chk i{width:18px;height:18px;border-radius:6px;background:var(--aub);color:var(--gold);display:grid;place-items:center;font-style:normal;font-size:11px}
+.seg{display:flex;background:#fff;border-radius:12px;padding:3px}.seg span{flex:1;text-align:center;padding:7px 0;border-radius:9px;font-size:12px;color:#7a6577}.seg .on{background:var(--aub);color:#fff;font-weight:900}
+
+/* كروت عامة على الخلفية الغامقة */
+.board{background:var(--aub2);border:1px solid var(--line);border-radius:22px;padding:16px;display:grid;gap:10px;min-width:0}
+.board h4{margin:0;font-size:13px;color:var(--dim)}
+.rw{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 12px;border-radius:12px;background:#ffffff0a;font-size:14px}
+.rw small{display:block;color:var(--dim);font-size:11px;font-weight:600}
+.pill{font-size:12px;padding:3px 10px;border-radius:99px;font-weight:900;white-space:nowrap;background:#ffffff14}
+.pill.g{background:var(--gold);color:var(--aub)}.pill.s{background:var(--silver);color:var(--aub)}
+
+/* المقدمة */
+.intro{text-align:center;justify-items:center}
+.logo{direction:ltr;text-align:center;font-family:var(--en);line-height:1}
+.logo .mr{font-family:var(--ar);font-size:13px;letter-spacing:7px;color:var(--gold)}
+.logo .nm{font-size:clamp(44px,9vw,92px);font-weight:900;color:#fff}
+.logo .ln{width:70px;height:4px;background:var(--gold);margin:14px auto 8px;border-radius:2px}
+.logo .sb{font-family:var(--ar);font-size:12px;letter-spacing:5px;color:var(--silver)}
+.stats{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.stat{border:1px dashed var(--line);border-radius:16px;padding:12px 18px;min-width:120px}
+.stat b{display:block;font-size:34px;color:var(--gold)}
+.stat span{font-size:13px;color:var(--dim)}
+.roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.role{background:var(--aub2);border:1px solid var(--line);border-radius:18px;padding:16px;display:grid;gap:6px}
+.role .ic{width:44px;height:44px;border-radius:14px;background:var(--gold);color:var(--aub);display:grid;place-items:center}
+.role b{font-size:18px}.role span{font-size:13px;color:var(--dim);line-height:1.7;font-weight:600}
+.role em{font-style:normal;font-size:12px;color:var(--gold)}
+
+/* خطوات الإعداد */
+.steps{display:flex;gap:6px;justify-content:center}.steps i{width:28px;height:6px;border-radius:9px;background:#ffffff30}.steps i.on{background:var(--gold);width:46px}
+.wz{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.wz div{background:#ffffff0d;border-radius:16px;padding:12px;display:grid;gap:4px;font-size:13px;color:var(--dim);font-weight:600}
+.wz b{color:#fff;font-size:15px}.wz em{font-style:normal;color:var(--gold);font-size:22px;font-weight:900}
+
+/* أرقام وحسابات */
+.eq{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;background:var(--gold);color:var(--aub);border-radius:22px;padding:18px;text-align:center}
+.eq span{display:block;font-size:12px;opacity:.8}.eq b{font-size:26px}.eq i{font-style:normal;font-size:30px;font-weight:900}
+.bars{display:flex;align-items:flex-end;gap:8px;height:130px}
+.bars i{flex:1;background:var(--gold);border-radius:8px 8px 3px 3px;transform-origin:bottom}
+.bars i:nth-child(even){background:var(--silver)}
+.scene.on .bars i{animation:grow .8s cubic-bezier(.2,.8,.2,1) both}
+.grid{display:grid;grid-template-columns:96px repeat(6,minmax(0,1fr));gap:4px;font-size:12px}
+.grid div{background:#ffffff0a;border-radius:7px;min-height:30px;display:grid;place-items:center;text-align:center}
+.grid .h{background:none;color:var(--dim)}.grid .n{justify-content:start;padding-inline:6px;place-items:center start}
+.grid .p{color:#fff;font-weight:900}.grid .x{background:var(--gold);color:var(--aub);font-weight:900}
+.scene.on .grid .x{animation:pop .4s both;animation-delay:1.2s}
+.rings{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ring{background:#fff;border-radius:16px;padding:10px 4px;text-align:center;position:relative}
+.ring svg{width:58px;height:58px;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:7}.ring .bg{stroke:#3a0f340f}.ring .fg{stroke:var(--aub);stroke-linecap:round;stroke-dasharray:188;stroke-dashoffset:188}
+.scene.on .ring .fg{animation:ring 1.1s .5s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes ring{to{stroke-dashoffset:var(--o)}}
+.ring b{position:absolute;top:28px;left:0;right:0;font-size:14px}.ring span{display:block;font-size:11px;color:#7a6577}
+
+/* واتساب */
+.wa{justify-self:center;width:min(330px,100%);background:#0b141a;border-radius:34px;padding:14px 10px 18px;display:grid;gap:10px;box-shadow:0 30px 60px #0008}
+.wa .top{display:flex;align-items:center;gap:8px;padding:2px 6px 10px;border-bottom:1px solid #ffffff14;font-size:14px}
+.wa .av{width:30px;height:30px;border-radius:50%;background:var(--gold);color:var(--aub);display:grid;place-items:center;font-size:12px;font-weight:900;font-family:var(--en)}
+.bub{background:#005c4b;color:#e9fdf5;border-radius:12px 12px 2px 12px;padding:9px 11px;font-size:13px;line-height:1.75;white-space:pre-line;justify-self:end;max-width:92%;font-weight:600}
+.scene.on .bub{animation:rise .6s both;animation-delay:calc(var(--d,0) * 1s)}
+
+/* الجرس */
+.bell{justify-self:center;width:84px;height:84px;border-radius:26px;background:var(--gold);color:var(--aub);display:grid;place-items:center;position:relative}
+.bell svg{width:42px;height:42px}
+.scene.on .bell{animation:ring2 1.2s .4s both}
+@keyframes ring2{20%{transform:rotate(14deg)}40%{transform:rotate(-12deg)}60%{transform:rotate(8deg)}80%{transform:rotate(-4deg)}}
+.bell i{position:absolute;top:-6px;left:-6px;min-width:28px;height:28px;border-radius:14px;background:#fff;color:var(--aub);font-style:normal;font-size:14px;display:grid;place-items:center;font-weight:900}
+
+/* الختام */
+.links{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.links a{background:var(--aub2);border:1px solid var(--line);border-radius:18px;padding:14px;color:inherit;text-decoration:none;display:grid;gap:4px}
+.links a:hover{border-color:var(--gold)}
+.links b{font-size:16px}.links span{font-size:12px;color:var(--dim);direction:ltr;text-align:right;word-break:break-all;font-weight:600}
+.sig{font-family:var(--en);font-size:clamp(30px,6vw,60px);letter-spacing:.2em;color:var(--gold);direction:ltr}
+.powered{font-size:12px;letter-spacing:.3em;color:var(--dim)}.powered b{color:#fff}
+
+/* شريط الفصول */
+.prog{display:flex;gap:8px;padding-block:8px calc(10px + env(safe-area-inset-bottom))}
+.pg{display:grid;gap:5px;min-width:0}
+.pg .bs{display:flex;gap:3px}
+.pg>span{font-size:11px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+.pg.cur>span{color:var(--gold)}
+@media(max-width:620px){.pg>span{display:none}}
+.prog button{flex:1;height:6px;border:0;border-radius:99px;background:var(--line);padding:0;position:relative;overflow:hidden}
+.prog button i{position:absolute;inset:0;background:var(--gold);transform-origin:right;transform:scaleX(0)}
+.prog button.done i{transform:scaleX(1)}
+.prog button.cur i{animation:fill var(--dur,10s) linear forwards}
+.paused .prog button.cur i{animation-play-state:paused}
+@keyframes fill{to{transform:scaleX(1)}}
+
+/* نافذة الديمو */
+.ov{position:fixed;inset:0;background:#0d020bcc;display:grid;place-items:center;z-index:20;padding:max(10px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) max(10px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left))}
+.ov[hidden]{display:none}
+.win{width:min(1240px,100%);height:100%;max-height:920px;background:var(--aub2);border:1px solid var(--line);border-radius:20px;display:grid;grid-template-rows:auto 1fr;overflow:hidden;animation:pop .35s both}
+.win header{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line)}
+.win header b{font-size:15px}.win header small{color:var(--dim);font-size:12px;display:block;font-weight:600}
+.win header button{background:var(--gold);color:var(--aub);border:0;border-radius:12px;padding:9px 14px;font-weight:900;white-space:nowrap}
+.win iframe{width:100%;height:100%;border:0;background:var(--silver)}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01s!important;animation-delay:0s!important;transition:none!important}.scene.on .typed{width:4.2ch}.ring .fg{stroke-dashoffset:var(--o)}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+ <symbol id="i-play" viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></symbol>
+ <symbol id="i-pause" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></symbol>
+ <symbol id="i-next" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></symbol>
+ <symbol id="i-prev" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+ <symbol id="i-how" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"/></symbol>
+ <symbol id="i-try" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M10 8l5 3-5 3z"/></symbol>
+ <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></symbol>
+ <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+ <symbol id="i-school" viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></symbol>
+ <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+ <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></symbol>
+ <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+</svg>
+
+<div class="app" id="app">
+ <div class="bar">
+  <div class="mini">Mr. Osama <em>Afifi</em></div>
+  <div class="chap" id="chap"></div>
+  <div class="ctrls">
+   <button id="prev" aria-label="المشهد اللي فات"><svg class="i"><use href="#i-prev"/></svg></button>
+   <button id="play" aria-label="تشغيل / إيقاف"><svg class="i" id="pi"><use href="#i-pause"/></svg></button>
+   <button id="next" aria-label="المشهد الجاي"><svg class="i"><use href="#i-next"/></svg></button>
+   <span class="count" id="count" dir="ltr"></span>
+  </div>
+ </div>
+
+ <main class="stage" id="stage">
+
+  <!-- ================= المقدمة ================= -->
+  <section class="scene" data-ch="0" data-dur="7">
+   <div class="wrap intro">
+    <div class="logo a"><div class="mr">MR.</div><div class="nm">Osama Afifi</div><div class="ln"></div><div class="sb">ENGLISH · PREP 1 · 2 · 3</div></div>
+    <h2 class="a" style="--d:.6">حصصك كلها <span class="hl">في موبايلك</span></h2>
+    <p class="lead a" style="--d:.9;text-align:center">الحضور، الكويز والامتحانات، الفلوس والمصاريف، والرسايل للطلاب وأولياء الأمور. والعرض ده بيشرح كل حاجة وإزاي تستخدمها.</p>
+    <div class="stats">
+     <div class="stat a" style="--d:1.2"><b data-count="4">4</b><span>أدوار</span></div>
+     <div class="stat a" style="--d:1.35"><b data-count="6">6</b><span>مجموعات جاهزة</span></div>
+     <div class="stat a" style="--d:1.5"><b>لايف</b><span>كل الموبايلات نفس البيانات</span></div>
+     <div class="stat a" style="--d:1.65"><b>0 ج</b><span>تكلفة شهرية</span></div>
+    </div>
+    <div class="powered a" style="--d:1.9">POWERED BY <b>HINDAWY</b></div>
+   </div>
+  </section>
+
+  <section class="scene" data-ch="0" data-dur="11">
+   <div class="wrap">
+    <div class="copy"><div class="eyebrow a">مين بيستخدمه</div><h2 class="a" style="--d:.1">سيستم واحد، <span class="hl">4 أدوار</span></h2>
+     <p class="lead a" style="--d:.3">كل واحد بيدخل من نفس الرابط ويشوف اللي يخصه بس. الدخول قسمين: «المستر والأسيستنت»، و«الطلاب وأولياء الأمور».</p></div>
+    <div class="roles">
+     <div class="role a" style="--d:.5"><span class="ic"><svg class="i"><use href="#i-user"/></svg></span><b>المستر</b><span>كل حاجة: المجموعات والمواعيد، الطلاب، الامتحانات، الفلوس والمصاريف، الرسايل، والإعدادات.</span><em>الدخول: «مستر» ← الباسورد</em></div>
+     <div class="role a" style="--d:.65"><span class="ic"><svg class="i"><use href="#i-shield"/></svg></span><b>الأسيستنت</b><span>تسجيل الحضور والكويز والدفع، وإضافة طلاب. المستر بيحدد يقدر يعمل إيه تاني.</span><em>الدخول: «أسيستنت» ← الباسورد بتاعه</em></div>
+     <div class="role a" style="--d:.8"><span class="ic"><svg class="i"><use href="#i-school"/></svg></span><b>الطالب</b><span>درجاته، وحضوره، ورسايل المستر وملفاته ومذكراته.</span><em>الدخول: كود الطالب + الرقم السري</em></div>
+     <div class="role a" style="--d:.95"><span class="ic"><svg class="i"><use href="#i-users"/></svg></span><b>ولي الأمر</b><span>زي الطالب + حالة الدفع، والإشعارات بالغياب والدرجات.</span><em>الدخول: كود الطالب + الرقم السري</em></div>
+    </div>
+   </div>
+  </section>
+
+  <!-- ================= أول مرة ================= -->
+  <section class="scene" data-ch="1" data-dur="14">
+   <div class="wrap two">
+    <div class="copy"><div class="eyebrow a">أول مرة بس</div><h2 class="a" style="--d:.1">خطوات الإعداد<br><span class="hl">في 3 دقايق</span></h2>
+     <div class="how a" style="--d:.4"><b><svg class="i"><use href="#i-how"/></svg>إزاي؟</b><ol>
+      <li>افتح رابط السيستم ودوس <b>«يلا نبدأ»</b>.</li>
+      <li>اكتب اسمك و<b>باسورد المستر</b> (هتدخل بيه من أي موبايل).</li>
+      <li>راجع <b>المجموعات الـ6</b>: الصف، المكان (الأسس / بيومي)، الأيام والساعات. عدّل أي حاجة.</li>
+      <li>اكتب <b>السعر لكل صف</b>: شهري أو بالحصة، ولو مختلف من سنتر للتاني فعّل «سعر لكل مكان».</li>
+      <li>الكويز من كام والامتحان من كام، و<b>المصاريف</b> (اختياري).</li>
+      <li>رسايل الواتساب: <b>شغّلها أو اقفلها</b> ← «خلّصنا».</li></ol>
+      <div class="tip">كل ده يتعدّل بعدين من «المجموعات» و«الإعدادات».</div></div></div>
+    <div class="board a" style="--d:.5"><div class="steps"><i></i><i></i><i class="on"></i><i></i><i></i><i></i></div>
+     <div class="wz"><div><em>1</em><b>أهلاً</b>الاسم والباسورد</div><div><em>2</em><b>المجموعات</b>6 مجموعات بمواعيدها</div><div><em>3</em><b>الأسعار</b>شهري أو بالحصة</div><div><em>4</em><b>الدرجات</b>الكويز / الامتحان من كام</div><div><em>5</em><b>المصاريف</b>إيجار، نسبة السنتر...</div><div><em>6</em><b>الرسايل</b>واتساب شغال / مقفول</div></div></div>
+   </div>
+  </section>
+
+  <section class="scene" data-ch="1" data-dur="12">
+   <div class="wrap two">
+    <div class="copy"><div class="eyebrow a">الدخول</div><h2 class="a" style="--d:.1">باسورد واحد<br><span class="hl">لكل واحد</span></h2>
+     <div class="how a" style="--d:.4"><b><svg class="i"><use href="#i-how"/></svg>إزاي؟</b><ol>
+      <li><b>المستر:</b> «المستر والأسيستنت» ← «مستر» ← الباسورد.</li>
+      <li><b>الأسيستنت:</b> نفس القسم ← «أسيستنت» ← الباسورد اللي المستر عمله (6 أرقام، مختلف لكل أسيستنت).</li>
+      <li><b>الطالب / ولي الأمر:</b> القسم التاني ← يختار ← <b>كود الطالب + الرقم السري</b> (4 أرقام، مختلف لكل طالب).</li></ol>
+      <div class="tip">الرقم السري لكل طالب ظاهر في ملفه، وفيه زرار يبعته لولي الأمر واتساب.</div></div></div>
+    <div class="phone a" style="--d:.5"><div class="scr" style="background:var(--aub);color:#fff;padding:22px 16px;gap:12px">
+     <div class="logo" style="margin:10px 0"><div class="mr" style="font-size:10px">MR.</div><div class="nm" style="font-size:34px">Osama Afifi</div></div>
+     <div style="background:var(--silver);border-radius:22px;padding:12px;display:grid;gap:8px;color:var(--aub)">
+      <div class="seg"><span>الطلاب وأولياء الأمور</span><span class="on">المستر والأسيستنت</span></div>
+      <div class="seg" style="background:#fff"><span>أسيستنت</span><span class="on" style="background:var(--gold);color:var(--aub)">مستر</span></div>
+      <div class="fld">الباسورد<b>••••••</b></div><div class="save" style="background:var(--aub);color:#fff">دخول</div></div></div></div>
+   </div>
+  </section>
+
+  <!-- ================= يوم الحصة ================= -->
+  <section class="scene" data-ch="2" data-dur="11">
+   <div class="wrap two">
+    <div class="copy"><div class="eyebrow a">أول ما تفتح</div><h2 class="a" style="--d:.1">الرئيسية:<br><span class="hl">حصص النهارده</span></h2>
+     <div class="how a" style="--d:.4"><b><svg class="i"><use href="#i-how"/></svg>إزاي؟</b><ol>
+      <li>هتلاقي <b>حصص النهارده</b> بالترتيب، والحصة اللي شغالة دلوقتي عليها «دلوقتي».</li>
+      <li>دوس على الحصة ← تفتح <b>تسجيل الحصة</b> على طول.</li>
+      <li>دوس على أي يوم في <b>الأسبوع</b> تشوف حصصه.</li>
+      <li><b>«محتاج انتباهك»</b>: مين مدفعش الشهر، ومين غاب حصتين ورا بعض.</li></ol></div>
+     <div class="demos a" style="--d:1.6"><button class="demo" data-demo="teacher-home" data-t="الرئيسية"><svg class="i"><use href="#i-try"/></svg>جرّب الرئيسية</button></div></div>
+    <div class="phone a" style="--d:.5"><div class="scr"><div class="ph-h" style="padding-bottom:30px"><span class="mini" style="font-size:16px">Mr. Osama <em>Afifi</em></span></div>
+     <div class="ph-b"><div class="card" style="outline:2px solid var(--gold)"><div class="t"><b>تالتة · سنتر الأسس</b><span class="tag g">دلوقتي</span></div><small>الاثنين · 12:00 ← 2:00 م · 11 طالب</small></div>
+      <div class="card"><div class="t"><b>تانية · سنتر الأسس</b><span class="tag">2:00</span></div><small>2:00 ← 3:30 م</small></div>
+      <div class="card"><div class="t"><b>أولى · سنتر الأسس</b><span class="tag">3:30</span></div><small>3:30 ← 4:30 م</small></div>
+      <div class="card" style="background:var(--aub);color:#fff"><b>محتاج انتباهك</b><small style="color:var(--silver)">8 طلاب مدفعوش أكتوبر · 2 غابوا حصتين</small></div></div></div></div>
+   </div>
+  </section>
+
+  <section class="scene" data-ch="2" data-dur="13">
+   <div class="wrap two">
+    <div class="copy"><div class="eyebrow a">تسجيل الحضور</div><h2 class="a" style="--d:.1">الكود + Enter<br><span class="hl">وخلاص</span></h2>
+     <div class="how a" style="--d:.4"><b><svg class="i"><use href="#i-how"/></svg>إزاي؟</b><ol>
+      <li>من فوق اختار <b>المجموعة</b> (حصص النهارده بتطلع الأول) والتاريخ.</li>
+      <li>في مربع البحث اكتب <b>الكود</b> أو أول حروف الاسم أو آخر أرقام التليفون ← <b>Enter</b>. الطالب بيتسجل حاضر.</li>
+      <li>أو دوس <b>«حضر»</b> / <b>«غاب»</b> جنب اسمه. لو دوست عليها تاني بتتشال.</li>
+      <li>طالب من مجموعة تانية؟ بيتسجل <b>«تعويض»</b> لوحده.</li>
+      <li>في الآخر دوس <b>«تسجيل اليوم»</b>: اللي ماجوش بيتسجلوا غياب.</li></ol></div>
+     <div class="demos a" style="--d:1.8"><button class="demo" data-demo="teacher-att" data-t="تسجيل الحصة"><svg class="i"><use href="#i-try"/></svg>جرّب تسجيل الحصة</button></div></div>
+    <div class="phone a" style="--d:.5"><div class="scr"><div class="ph-h"><b>تسجيل الحصة</b><span class="tag g">الحصة 7 · الأسبوع 4</span></div>
+     <div class="ph-b"><div class="srch"><span class="typed">1004</span><svg class="i" style="color:#7a6577"><use href="#i-search"/></svg></div>
+      <div class="card" style="outline:2px solid var(--aub)"><div class="t"><b>يوسف خالد</b><small>1004</small></div><div class="btns"><span class="bt p">✓ حضر</span><span class="bt">غاب</span><span class="bt q">كويز 9/10</span></div></div>
+      <div class="card" style="outline:2px solid var(--gold)"><div class="t"><b>مريم السيد</b><small>1002</small></div><div class="btns"><span class="bt">حضر</span><span class="bt a">✕ غاب</span></div></div>
+      <div class="stamp">حضر ✓</div><div class="save">تسجيل اليوم</div></div></div></div>
+   </div>
+  </section>
+
+  <section class="scene" data-ch="2" data-dur="12">
+   <div class="wrap two">
+    <div class="copy"><div class="eyebrow a">في نفس الشاشة</div><h2 class="a" style="--d:.1">الكويز والدفع<br><span class="hl">مع الحضور</span></h2>
+     <div class="how a" style="--d:.4"><b><svg class="i"><use href="#i-how"/></svg>إزاي؟</b><ol>
+      <li>أول ما الطالب يحضر، بتظهر خانة <b>الكويز</b>: اكتب الدرجة على طول.</li>
+      <li>مفيش كويز النهارده؟ دوس <b>«كويز النهارده»</b> عشان تقفله، و<b>«امتحان في الحصة»</b> لو فيه امتحان.</li>
+      <li>«الدرجة النهائية» بتغيّر الكويز من كام للحصة دي بس.</li>
+      <li><b>الدفع:</b> المجموعة الشهري ← دوس «مدفعش الشهر» لما يدفع. بالحصة ← «دفع» أو «آجل».</li></ol></div></div>
+    <div class="phone a" style="--d:.5"><div class="scr"><div class="ph-h"><b>تالتة · الأسس</b></div>
+     <div class="ph-b"><div class="btns"><span class="bt p">✓ كويز النهارده /10</span><span class="bt">+ امتحان في الحصة</span></div>
+      <div class="card"><div class="t"><b>أحمد محمد</b><span class="tag a">دفع أكتوبر</span></div><div class="btns"><span class="bt p">✓ حضر</span><span class="bt">غاب</span><span class="bt q">كويز 8/10</span></div></div>
+      <div class="card"><div class="t"><b>سلمى عادل</b><span class="tag g">مدفعش</span></div><div class="btns"><span class="bt p">✓ حضر</span><span class="bt">غاب</span><span class="bt q">كويز __/10</span></div><span class="bt" style="background:#3a0f340d">مدفعش الشهر — دوس لما يدفع</span></div></div></div></div>
+   </div>
+  </section>
+
+  <section class="scene" data-ch="2" data-dur="12">
+   <div class="wrap two">
+    <div class="copy"><div class="eyebrow a">طالب جديد</div><h2 class="a" style="--d:.1">4 خانات<br><span class="hl">وبياخد كود</span></h2>
+     <div class="how a" style="--d:.4"><b><svg class="i"><use href="#i-how"/></svg>إزاي؟</b><ol>
+      <li>دوس <b>«طالب جديد»</b> (أو أيقونة ➕ جنب البحث في الحصة).</li>
+      <li>الاسم ← <b>المجموعة</b> ← ولد / بنت ← تليفون ولي الأمر.</li>
+      <li>لو الطالب مالوش تليفون: سيب <b>«تليفون الطالب هو نفس تليفون ولي الأمر»</b> متعلّمة.</li>
+      <li>«حفظ» ← بياخد <b>كود</b> و<b>رقم سري</b> لوحده. «حفظ وضيف غيره» لو هتضيف كذا واحد.</li></ol>
+      <div class="tip">لو ضفته من شاشة الحصة، بيتسجل حاضر على طول.</div></div></div>
+    <div class="phone a" style="--d:.5"><div class="scr"><div class="ph-h"><b>طالب جديد</b></div>
+     <div class="ph-b"><div class="fld">اسم الطالب<b>آدم شريف لطفي</b></div><div class="seg"><span>أولى · الأسس</span><span class="on">تالتة · الأسس</span><span>تالتة · بيومي</span></div>
+      <div class="fld">تليفون ولي الأمر<b style="direction:ltr;text-align:right">01012345678</b></div><div class="chk"><i>✓</i>تليفون الطالب هو نفس تليفون ولي الأمر</div>
+      <div class="card" style="background:var(--aub);color:#fff"><b>اتسجل آدم · كود 1067 · رقم سري 4821</b></div></div></div></div>
+   </div>
+  </section>
+
+  <section class="scene" data-ch="2" data-dur="11">
+   <div class="wrap two">
+    <div class="copy"><div class="eyebrow a">فيه غلط؟</div><h2 class="a" style="--d:.1">عدّل وسجّل تاني<br><span class="hl">من غير تكرار</span></h2>
+     <div class="how a" style="--d:.4"><b><svg class="i"><use href="#i-how"/></svg>إزاي؟</b><ol>
+      <li>كل حصة ليها <b>رقم</b>: «الحصة 7 · الأسبوع 4 (حصة 1 من 2)»، والسيستم بيعدّ لوحده لكل مجموعة.</li>
+      <li>سجّلت ولقيت حضور أو درجة غلط؟ عدّلها في نفس الشاشة.</li>
+      <li>دوس <b>«حفظ التعديلات»</b>: نفس الحصة بتتعدّل، ومفيش حاجة بتتكرر.</li>
+      <li>حصة يوم فات؟ غيّر <b>التاريخ</b> من فوق وعدّل.</li></ol></div></div>
+    <div class="board a" style="--d:.5"><h4>المجموعة: تالتة · سنتر الأسس (اتنين وخميس)</h4>
+     <div class="rw"><span>الحصة 6 · الأسبوع 3 <small>الخميس 16/10</small></span><span class="pill s">اتسجلت</span></div>
+     <div class="rw" style="outline:2px solid var(--gold)"><span>الحصة 7 · الأسبوع 4 <small>الاثنين 20/10 — اتعدلت الساعة 2:10 م</small></span><span class="pill g">حفظ التعديلات</span></div>
+     <div class="rw"><span>الحصة 8 · الأسبوع 4 <small>الخميس 23/10</small></span><span class="pill">الجاية</span></div></div>
+   </div>
+  </section>
+
+  <section class="scene" data-ch="2" data-dur="12">
+   <div class="wrap two">
+    <div class="copy"><div class="eyebrow a">اختياري</div><h2 class="a" style="--d:.1">رسايل الواتساب<br><span class="hl">لو إنت عايز</span></h2>
+     <div class="how a" style="--d:.4"><b><svg class="i"><use href="#i-how"/></svg>إزاي؟</b><ol>
+      <li>من <b>الإعدادات</b> شغّل أو اقفل «رسايل واتساب بعد الحصة» في أي وقت.</li>
+      <li>لو شغالة: بعد «تسجيل اليوم» يطلعلك زرار لكل ولي أمر: <b>غياب</b> أو <b>تقرير</b>.</li>
+      <li>الزرار بيفتح واتساب والرسالة مكتوبة جاهزة، ودوس إرسال.</li>
+      <li>مش عايز تبعت؟ اقفل النافذة، والحصة اتسجلت عادي.</li></ol></div></div>
+    <div class="wa a" style="--d:.5"><div class="top"><span class="av">OA</span><b>مستر أسامة</b></div>
+     <div class="bub" style="--d:.9">السلام عليكم ولي أمر الطالب يوسف خالد
+تقرير حصة الاثنين 20 أكتوبر
+• الحضور: حضر
+• كويز النهارده: 9 / 10
+• متوسط الدرجات: 86% (ممتاز)
+• اشتراك الشهر: مدفوع
+مستر أسامة عفيفي — English</div>
+     <div class="bub" style="--d:1.6">نحيطكم علماً بغياب مريم السيد عن حصة الإنجليزي النهارده.</div></div>
+   </div>
+  </section>
+
+  <!-- ================= الامتحانات ================= -->
+  <section class="scene" data-ch="3" data-dur="13">
+   <div class="wrap two">
+    <div class="copy"><div class="eyebrow a">من غير حصة</div><h2 class="a" style="--d:.1">امتحان لوحده<br><span class="hl">بيتسجل زي الحصة</span></h2>
+     <div class="how a" style="--d:.4"><b><svg class="i"><use href="#i-how"/></svg>إزاي؟</b><ol>
+      <li><b>الامتحانات والدرجات</b> ← «امتحان جديد».</li>
+      <li>اختار <b>لمين</b>: الصف كله (كل المجموعات) أو مجموعة واحدة، والدرجة النهائية والتاريخ.</li>
+      <li>اكتب كود اللي حضر ← Enter ← اكتب <b>الدرجة</b>.</li>
+      <li><b>«تسجيل الامتحان»</b>: اللي مجاش بيتسجل غياب. فيه غلط؟ عدّل و«حفظ التعديلات».</li></ol>
+      <div class="tip">«ظاهر للطلاب / مخفي» بيتحكم إن الدرجات تظهر في البوابة ولا لأ.</div></div>
+     <div class="demos a" style="--d:1.6"><button class="demo" data-demo="teacher-grades-exam" data-t="امتحان لوحده"><svg class="i"><use href="#i-try"/></svg>جرّب الامتحان</button></div></div>
+    <div class="phone a" style="--d:.5"><div class="scr"><div class="ph-h"><b>امتحان الوحدة الأولى</b><span class="tag g">من 20</span></div>
+     <div class="ph-b"><div class="btns"><span class="bt" style="background:#fff">الطلاب 22</span><span class="bt" style="background:#fff">حضروا 19</span><span class="bt" style="background:#fff">المتوسط 78%</span></div>
+      <div class="card"><div class="t"><b>أحمد محمد</b><span class="tag a">90%</span></div><div class="btns"><span class="bt p">✓ حضر</span><span class="bt">غاب</span><span class="bt q">18 / 20</span></div></div>
+      <div class="card"><div class="t"><b>نور الهدى</b></div><div class="btns"><span class="bt">حضر</span><span class="bt a">✕ غاب</span></div></div>
+      <div class="save">تسجيل الامتحان</div></div></div></div>
+   </div>
+  </section>
+
+  <section class="scene" data-ch="3" data-dur="11">
+   <div class="wrap two">
+    <div class="copy"><div class="eyebrow a">أوتوماتيك</div><h2 class="a" style="--d:.1">المستوى بيتحسب<br><span class="hl">لوحده</span></h2>
+     <div class="how a" style="--d:.4"><b><svg class="i"><use href="#i-how"/></svg>إزاي بيتحسب؟</b><ol>
+      <li>كل درجة (كويز أو امتحان) بتتحول لنسبة، و<b>المتوسط</b> بيطلع منهم.</li>
+      <li>المستوى: <b>ممتاز</b> 85% · <b>جيد جداً</b> 65% · <b>مقبول</b> 50% · <b>ضعيف</b> أقل من كده.</li>
+      <li>وكمان: <b>في تحسن</b> / <b>في تراجع</b> من آخر الدرجات.</li>
+      <li>من «الطلاب» فلتر «المتفوقين» أو «محتاجين متابعة».</li></ol></div>
+     <div class="demos a" style="--d:1.5"><button class="demo" data-demo="teacher-grades" data-t="الدرجات"><svg class="i"><use href="#i-try"/></svg>جرّب الدرجات</button></div></div>
+    <div class="board a" style="--d:.5"><h4>آخر 8 درجات لطالب</h4><div class="bars"><i style="height:55%"></i><i style="height:62%;animation-delay:.08s"></i><i style="height:58%;animation-delay:.16s"></i><i style="height:70%;animation-delay:.24s"></i><i style="height:76%;animation-delay:.32s"></i><i style="height:74%;animation-delay:.4s"></i><i style="height:85%;animation-delay:.48s"></i><i style="height:90%;animation-delay:.56s"></i></div>
+     <div class="rw"><span>المتوسط</span><span class="pill g">84% · جيد جداً</span></div><div class="rw"><span>الاتجاه</span><span class="pill s">في تحسن ↑</span></div></div>
+   </div>
+  </section>
+
+  <!-- ================= الطلاب والمجموعات ================= -->
+  <section class="scene" data-ch="4" data-dur="12">
+   <div class="wrap two">
+    <div class="copy"><div class="eyebrow a">دوس على أي طالب</div><h2 class="a" style="--d:.1">ملفه كامل<br><span class="hl">في شاشة واحدة</span></h2>
+     <div class="how a" style="--d:.4"><b><svg class="i"><use href="#i-how"/></svg>فيه إيه؟</b><ol>
+      <li><b>نسبة الحضور</b> و<b>متوسط الدرجات</b> و<b>غاب كام مرة</b>، وآخر حصة.</li>
+      <li>تاب <b>الحضور</b>: كل حصة بتاريخها ورقمها، حضر ولا غاب.</li>
+      <li>تاب <b>الدرجات</b>: رسم بياني وكل الدرجات. تاب <b>الفلوس</b>: الشهور اللي دفعها.</li>
+      <li>تاب <b>رسالة</b>: تقرير / شهري / مستوى / رسالتك، واتساب أو في البوابة.</li>
+      <li>تحت: <b>تعديل / نقل مجموعة</b>، انسحاب، رقم سري جديد.</li></ol></div>
+     <div class="demos a" style="--d:1.9"><button class="demo" data-demo="teacher-students" data-t="الطلاب"><svg class="i"><use href="#i-try"/></svg>جرّب الطلاب</button></div></div>
+    <div class="phone a" style="--d:.5"><div class="scr"><div class="ph-b" style="padding-top:16px"><div class="card"><div class="t"><b style="font-size:17px">يوسف خالد إبراهيم</b><span class="tag a">ممتاز</span></div><small>كود 1004 · تالتة · سنتر الأسس</small></div>
+     <div class="rings"><div class="ring"><svg viewBox="0 0 72 72"><circle r="30" cx="36" cy="36" class="bg"/><circle r="30" cx="36" cy="36" class="fg" style="--o:15"/></svg><b>92%</b><span>الحضور</span></div><div class="ring"><svg viewBox="0 0 72 72"><circle r="30" cx="36" cy="36" class="bg"/><circle r="30" cx="36" cy="36" class="fg" style="--o:26;stroke:var(--gold)"/></svg><b>86%</b><span>الدرجات</span></div><div class="ring"><b style="position:static;display:block;font-size:26px;margin:10px 0 6px">1</b><span>غياب من 12</span></div></div>
+     <div class="card"><small>ولي الأمر · 01012345678</small><small>دخول البوابة: كود 1004 · رقم سري 4821</small></div>
+     <div class="btns"><span class="bt p">الحضور</span><span class="bt">الدرجات</span><span class="bt">الفلوس</span><span class="bt">رسالة</span></div></div></div></div>
+   </div>
+  </section>
+
+  <section class="scene" data-ch="4" data-dur="12">
+   <div class="wrap two">
+    <div class="copy"><div class="eyebrow a">دوس على أي مجموعة</div><h2 class="a" style="--d:.1">كشف الحضور<br><span class="hl">زي الشيت</span></h2>
+     <div class="how a" style="--d:.4"><b><svg class="i"><use href="#i-how"/></svg>إزاي؟</b><ol>
+      <li><b>المجموعات</b> ← دوس على المجموعة.</li>
+      <li>فوق: عدد الطلاب، نسبة الحضور، متوسط الدرجات، وإيراد الشهر.</li>
+      <li>تاب <b>كشف الحضور</b>: الطلاب × الحصص (ح / غ) بأرقام الحصص.</li>
+      <li>تاب <b>الدرجات</b>: كل الكويزات والامتحانات. وتاب <b>الدفع</b>: مين دفع الشهر.</li></ol></div>
+     <div class="demos a" style="--d:1.6"><button class="demo" data-demo="teacher-groups-G1" data-t="المجموعة"><svg class="i"><use href="#i-try"/></svg>جرّب المجموعة</button></div></div>
+    <div class="board a" style="--d:.5"><h4>تالتة · سنتر الأسس — كشف الحضور</h4>
+     <div class="grid"><div class="h"></div><div class="h">ح3</div><div class="h">ح4</div><div class="h">ح5</div><div class="h">ح6</div><div class="h">ح7</div><div class="h">ح8</div>
+      <div class="n">أحمد محمد</div><div class="p">ح</div><div class="p">ح</div><div class="p">ح</div><div class="p">ح</div><div class="p">ح</div><div class="p">ح</div>
+      <div class="n">مريم السيد</div><div class="p">ح</div><div class="x">غ</div><div class="p">ح</div><div class="p">ح</div><div class="x">غ</div><div class="x">غ</div>
+      <div class="n">يوسف خالد</div><div class="p">ح</div><div class="p">ح</div><div class="p">ح</div><div class="x">غ</div><div class="p">ح</div><div class="p">ح</div>
+      <div class="n">سلمى عادل</div><div class="p">ح</div><div class="p">ح</div><div class="p">ح</div><div class="p">ح</div><div class="p">ح</div><div class="p">ح</div></div></div>
+   </div>
+  </section>
+
+  <section class="scene" data-ch="4" data-dur="11">
+   <div class="wrap two">
+    <div class="copy"><div class="eyebrow a">أي حاجة تتغير</div><h2 class="a" style="--d:.1">المواعيد والأسعار<br><span class="hl">بإيدك</span></h2>
+     <div class="how a" style="--d:.4"><b><svg class="i"><use href="#i-how"/></svg>إزاي؟</b><ol>
+      <li><b>المجموعات</b> ← دوس على المجموعة ← <b>«تعديل»</b>.</li>
+      <li>غيّر <b>الاسم</b> أو <b>المكان</b> أو <b>الأيام والساعات</b> (كل يوم ليه ساعته)، أو ضيف يوم تاني.</li>
+      <li>غيّر نظام الدفع والسعر، والكويز من كام.</li>
+      <li>مجموعة جديدة؟ «مجموعة جديدة». متوقفة؟ «قفل المجموعة».</li></ol>
+      <div class="tip">الأماكن (الأسس، بيومي، أو مكان جديد) من الإعدادات.</div></div>
+     <div class="demos a" style="--d:1.5"><button class="demo" data-demo="teacher-groups" data-t="المجموعات"><svg class="i"><use href="#i-try"/></svg>جرّب المجموعات</button></div></div>
+    <div class="board a" style="--d:.5"><h4>تعديل: تالتة · سنتر بيومي</h4>
+     <div class="rw"><span>السبت</span><span class="pill">4:00 ← 6:00 م</span></div><div class="rw"><span>الثلاثاء</span><span class="pill">11:30 ص ← 1:30 م</span></div>
+     <div class="rw" style="outline:2px dashed var(--gold)"><span class="hl">+ يوم تاني</span></div><div class="rw"><span>الدفع</span><span class="pill g">شهري · 250 ج</span></div></div>
+   </div>
+  </section>
+
+  <!-- ================= الفلوس ================= -->
+  <section class="scene" data-ch="5" data-dur="12">
+   <div class="wrap two">
+    <div class="copy"><div class="eyebrow a">آخر الشهر</div><h2 class="a" style="--d:.1">الصافي<br><span class="hl">من غير آلة حاسبة</span></h2>
+     <div class="how a" style="--d:.4"><b><svg class="i"><use href="#i-how"/></svg>إزاي؟</b><ol>
+      <li><b>الحسابات والمصاريف</b> ← بتلاقي <b>الإيراد − المصاريف = الصافي</b> للشهر.</li>
+      <li>الأسهم فوق بتنقلك بين الشهور.</li>
+      <li>«الإيراد جه منين»: اشتراكات، حصص، تسديد آجل.</li>
+      <li>«اشتراكات الشهر»: المفروض يتحصّل كام، واتحصّل كام، و<b>مين مدفعش</b>.</li></ol></div>
+     <div class="demos a" style="--d:1.6"><button class="demo" data-demo="teacher-money" data-t="الحسابات"><svg class="i"><use href="#i-try"/></svg>جرّب الحسابات</button></div></div>
+    <div class="board a" style="--d:.5"><div class="eq"><div><span>الإيراد</span><b data-count="12090">12,090</b></div><i>−</i><div><span>المصاريف</span><b data-count="3710">3,710</b></div><i>=</i><div><span>الصافي</span><b data-count="8380">8,380</b></div></div>
+     <div class="bars"><i style="height:50%"></i><i style="height:60%;animation-delay:.1s"></i><i style="height:55%;animation-delay:.2s"></i><i style="height:72%;animation-delay:.3s"></i><i style="height:80%;animation-delay:.4s"></i><i style="height:88%;animation-delay:.5s"></i></div><h4 style="text-align:center">الصافي آخر 6 شهور</h4></div>
+   </div>
+  </section>
+
+  <section class="scene" data-ch="5" data-dur="12">
+   <div class="wrap two">
+    <div class="copy"><div class="eyebrow a">المصاريف</div><h2 class="a" style="--d:.1">الاسم لوحده<br><span class="hl">والرقم لوحده</span></h2>
+     <div class="how a" style="--d:.4"><b><svg class="i"><use href="#i-how"/></svg>إزاي؟</b><ol>
+      <li>في «المصاريف» دوس <b>«+ مصروف»</b>.</li>
+      <li>اكتب <b>الاسم</b> (إيجار سنتر الأسس) و<b>المبلغ</b> (رقم بس).</li>
+      <li>اختار <b>بيتحسب إزاي</b>: ثابت كل شهر · على كل طالب (شهري) · على كل طالب في الحصة · مرة واحدة.</li>
+      <li>اختار <b>على مين</b>: كل المجموعات، أو سنتر معين، أو صف. والسيستم بيحسب ويطرح.</li></ol></div></div>
+    <div class="board a" style="--d:.5"><h4>مصاريف أكتوبر</h4>
+     <div class="rw"><span>إيجار سنتر الأسس<small>ثابت كل شهر</small></span><b>1,500 ج</b></div>
+     <div class="rw"><span>نسبة سنتر بيومي<small>20 × 33 طالب</small></span><b>660 ج</b></div>
+     <div class="rw"><span>مرتب الأسيستنت<small>ثابت كل شهر</small></span><b>1,200 ج</b></div>
+     <div class="rw"><span>طباعة مذكرات<small>مرة واحدة</small></span><b>350 ج</b></div>
+     <div class="rw" style="background:var(--gold);color:var(--aub)"><span>الإجمالي<small style="color:var(--aub)">1,500 + 660 + 1,200 + 350</small></span><b>= 3,710 ج</b></div></div>
+   </div>
+  </section>
+
+  <!-- ================= الرسايل والإشعارات ================= -->
+  <section class="scene" data-ch="6" data-dur="12">
+   <div class="wrap two">
+    <div class="copy"><div class="eyebrow a">رسايل البوابة</div><h2 class="a" style="--d:.1">رسالة + ملف أو صورة<br><span class="hl">توصل في البوابة</span></h2>
+     <div class="how a" style="--d:.4"><b><svg class="i"><use href="#i-how"/></svg>إزاي؟</b><ol>
+      <li><b>الرسايل</b> ← «رسايل البوابة».</li>
+      <li>اختار <b>تروح لمين</b>: الطلاب وأولياء الأمور، الطلاب بس، أو أولياء الأمور بس.</li>
+      <li>اختار <b>أنهي طلاب</b>: الكل، صف، أو مجموعة.</li>
+      <li>اكتب الرسالة، وضيف <b>صورة أو PDF</b> لو عايز ← «ابعت». بتظهر عندهم وبيوصلهم إشعار.</li></ol>
+      <div class="tip">«اكتب المواعيد» بيكتبلك مواعيد كل المجموعات جاهزة.</div></div>
+     <div class="demos a" style="--d:1.6"><button class="demo" data-demo="teacher-msgs" data-t="الرسايل"><svg class="i"><use href="#i-try"/></svg>جرّب الرسايل</button></div></div>
+    <div class="phone a" style="--d:.5"><div class="scr"><div class="ph-h"><b>الرسايل</b></div>
+     <div class="ph-b"><div class="seg"><span>أولياء الأمور</span><span>الطلاب</span><span class="on">الاتنين</span></div><div class="fld">أنهي طلاب<b>تالتة إعدادي</b></div>
+      <div class="fld" style="min-height:70px">الرسالة<b style="font-weight:700">مراجعة الوحدة الأولى — Grammar + Vocabulary</b></div>
+      <div class="card"><div class="t"><b>Unit-1-Revision.pdf</b><small>240 KB</small></div></div><div class="save">ابعت</div></div></div></div>
+   </div>
+  </section>
+
+  <section class="scene" data-ch="6" data-dur="12">
+   <div class="wrap two">
+    <div class="copy"><div class="eyebrow a">واتساب لمجموعة</div><h2 class="a" style="--d:.1">رسالة لكل فئة<br><span class="hl">ولكل الأهالي</span></h2>
+     <div class="how a" style="--d:.4"><b><svg class="i"><use href="#i-how"/></svg>إزاي؟</b><ol>
+      <li><b>الرسايل</b> ← «واتساب».</li>
+      <li>اختار المجموعة و<b>مين بالظبط</b>: الكل، المتفوقين، محتاجين متابعة، غابوا النهارده، مدفعوش الشهر.</li>
+      <li>اختار الرسالة: <b>تقرير شهري</b>، المستوى، المواعيد، <b>بيانات الدخول</b>، أو رسالتك.</li>
+      <li>«جهّز الرسايل» ← زرار لكل ولي أمر ← بيفتح واتساب جاهز.</li></ol>
+      <div class="tip">«بيانات الدخول» بتبعت لكل ولي أمر الرابط والكود والرقم السري بتوع ابنه.</div></div></div>
+    <div class="wa a" style="--d:.5"><div class="top"><span class="av">OA</span><b>مستر أسامة</b></div>
+     <div class="bub" style="--d:.9">السلام عليكم ولي أمر الطالب أحمد محمد
+بوابة الطالب وولي الأمر — مستر أسامة عفيفي:
+ahmedelhendway0-byte.github.io/osama-afifi
+كود الطالب: 1001
+الرقم السري: 4821
+هتلاقوا فيها الدرجات والحضور ورسايل المستر.</div></div>
+   </div>
+  </section>
+
+  <section class="scene" data-ch="6" data-dur="12">
+   <div class="wrap two">
+    <div class="copy"><div class="eyebrow a">الإشعارات</div><h2 class="a" style="--d:.1">أي حاجة جديدة<br><span class="hl">توصل الموبايل</span></h2>
+     <div class="how a" style="--d:.4"><b><svg class="i"><use href="#i-how"/></svg>إزاي؟</b><ol>
+      <li>دوس على <b>الجرس</b> فوق ← «فعّل إشعارات الموبايل» ← <b>Allow / سماح</b>.</li>
+      <li><b>الطالب وولي الأمر:</b> رسالة من المستر، درجة جديدة، حضر / غاب، اتسجل الدفع.</li>
+      <li><b>المستر:</b> اللي الأسيستنت سجّله (طالب جديد، حصة، امتحان، دفع). و<b>الأسيستنت</b> بيشوف اللي المستر سجّله.</li>
+      <li>الرقم على الجرس = الحاجات الجديدة اللي لسه مشفتهاش.</li></ol>
+      <div class="tip">على الآيفون: ضيف السيستم على الشاشة الرئيسية الأول (مشاركة ← Add to Home Screen).</div></div></div>
+    <div class="board a" style="--d:.5;justify-items:center"><div class="bell"><svg class="i"><use href="#i-bell"/></svg><i>3</i></div>
+     <div class="rw" style="width:100%"><span>رسالة من المستر<small>امتحان الوحدة التانية يوم الخميس</small></span></div>
+     <div class="rw" style="width:100%"><span>درجة جديدة<small>امتحان الوحدة الأولى: 18 / 20</small></span></div>
+     <div class="rw" style="width:100%"><span>حضر الحصة<small>تالتة · سنتر الأسس · الاثنين 20 أكتوبر</small></span></div></div>
+   </div>
+  </section>
+
+  <!-- ================= الأسيستنت ================= -->
+  <section class="scene" data-ch="7" data-dur="13">
+   <div class="wrap two">
+    <div class="copy"><div class="eyebrow a">الأسيستنت</div><h2 class="a" style="--d:.1">بيسجّل من موبايله<br><span class="hl">وإنت بتحدد صلاحياته</span></h2>
+     <div class="how a" style="--d:.4"><b><svg class="i"><use href="#i-how"/></svg>إزاي؟</b><ol>
+      <li><b>الإعدادات</b> ← «الأسيستنتس» ← اكتب الاسم والرقم ← <b>«ضيف»</b>.</li>
+      <li>بيطلع <b>باسورد من 6 أرقام</b> ← «ابعتهاله» واتساب.</li>
+      <li>هو يدخل: «المستر والأسيستنت» ← «أسيستنت» ← الباسورد.</li>
+      <li>فعّل اللي يقدر يعمله: إضافة طلاب، الدرجات، الرسايل، <b>الفلوس</b> (مقفولة)، الحذف (مقفول).</li>
+      <li>«باسورد جديد» لو نسيه أو مشي.</li></ol></div>
+     <div class="demos a" style="--d:1.9"><button class="demo" data-demo="assistant-att" data-t="شاشة الأسيستنت"><svg class="i"><use href="#i-try"/></svg>جرّب كأسيستنت</button><button class="demo ghost" data-demo="teacher-settings" data-t="الإعدادات">الإعدادات</button></div></div>
+    <div class="board a" style="--d:.5"><h4>الأسيستنتس</h4>
+     <div class="rw"><span>منة الله<small>الباسورد: 482913</small></span><span class="pill g">ابعتهاله</span></div>
+     <h4 style="margin-top:6px">الأسيستنت يقدر:</h4>
+     <div class="rw"><span>يضيف ويعدّل طلاب</span><span class="pill g">شغال</span></div><div class="rw"><span>يسجّل الامتحانات والدرجات</span><span class="pill g">شغال</span></div>
+     <div class="rw"><span>يشوف الفلوس والحسابات</span><span class="pill">مقفول</span></div><div class="rw"><span>يحذف طلاب نهائي</span><span class="pill">مقفول</span></div></div>
+   </div>
+  </section>
+
+  <!-- ================= الطالب وولي الأمر ================= -->
+  <section class="scene" data-ch="8" data-dur="12">
+   <div class="wrap two">
+    <div class="copy"><div class="eyebrow a">في البيت</div><h2 class="a" style="--d:.1">ولي الأمر<br><span class="hl">بيتابع من موبايله</span></h2>
+     <div class="how a" style="--d:.4"><b><svg class="i"><use href="#i-how"/></svg>إزاي؟</b><ol>
+      <li>يفتح الرابط ← «الطلاب وأولياء الأمور» ← «ولي أمر» أو «طالب».</li>
+      <li>يكتب <b>كود الطالب</b> و<b>الرقم السري</b> (بيوصلوه من المستر).</li>
+      <li>يشوف: <b>الرسايل والملفات</b>، الدرجات، الحضور، و<b>الدفع</b> (لولي الأمر).</li>
+      <li>يقدر يغيّر الرقم السري من تحت.</li></ol></div>
+     <div class="demos a" style="--d:1.6"><button class="demo" data-demo="parent-portal" data-t="بوابة ولي الأمر"><svg class="i"><use href="#i-try"/></svg>جرّب كولي أمر</button><button class="demo ghost" data-demo="student-portal" data-t="بوابة الطالب">كطالب</button></div></div>
+    <div class="phone a" style="--d:.5"><div class="scr"><div class="ph-h" style="display:block"><small style="color:var(--silver)">ولي أمر</small><br><b style="font-size:18px">أحمد محمد علي</b><br><small style="color:var(--silver)">كود 1001 · تالتة · سنتر الأسس</small></div>
+     <div class="ph-b"><div class="rings"><div class="ring"><svg viewBox="0 0 72 72"><circle r="30" cx="36" cy="36" class="bg"/><circle r="30" cx="36" cy="36" class="fg" style="--o:19"/></svg><b>90%</b><span>الحضور</span></div><div class="ring"><svg viewBox="0 0 72 72"><circle r="30" cx="36" cy="36" class="bg"/><circle r="30" cx="36" cy="36" class="fg" style="--o:30;stroke:var(--gold)"/></svg><b>84%</b><span>الدرجات</span></div><div class="ring"><span class="tag a" style="margin:20px 0 10px;display:inline-block">جيد جداً</span><span>المستوى</span></div></div>
+      <div class="card"><div class="t"><b>رسالة من المستر</b><small>امبارح</small></div><small>امتحان الوحدة التانية يوم الخميس الجاي</small></div>
+      <div class="card"><div class="t"><b>اشتراك أكتوبر</b><span class="tag a">مدفوع</span></div></div></div></div></div>
+   </div>
+  </section>
+
+  <!-- ================= الختام ================= -->
+  <section class="scene" data-ch="9" data-dur="14">
+   <div class="wrap">
+    <div class="copy" style="text-align:center;justify-items:center"><div class="eyebrow a">الروابط</div><h2 class="a" style="--d:.1">كله جاهز <span class="hl">ولايف</span></h2>
+     <p class="lead a" style="--d:.3;text-align:center">البيانات أونلاين على Supabase، وفيه شيت جوجل بيتحدّث لوحده كل 10 دقايق للمتابعة.</p></div>
+    <div class="links">
+     <a class="a" style="--d:.5" href="../#login-staff" target="_blank" rel="noopener"><b>دخول المستر والأسيستنت</b><span>ahmedelhendway0-byte.github.io/osama-afifi/#login-staff</span></a>
+     <a class="a" style="--d:.65" href="../#login-family" target="_blank" rel="noopener"><b>دخول الطلاب وأولياء الأمور</b><span>ahmedelhendway0-byte.github.io/osama-afifi/#login-family</span></a>
+     <a class="a" style="--d:.8" href="https://ahmedelhendway0-byte.github.io/hindawy/osama-afifi/" target="_blank" rel="noopener"><b>صفحة المشروع</b><span>ahmedelhendway0-byte.github.io/hindawy/osama-afifi</span></a>
+    </div>
+    <div class="demos a" style="--d:1.1;justify-content:center"><button class="demo" data-demo="teacher-home" data-t="السيستم كامل"><svg class="i"><use href="#i-try"/></svg>جرّب السيستم كامل</button></div>
+    <div class="a" style="--d:1.4;text-align:center;display:grid;gap:8px"><div class="sig">HINDAWY</div><div class="powered">POWERED BY <b>HINDAWY</b> · Take it easy. We’ve got the rest.</div></div>
+   </div>
+  </section>
+ </main>
+
+ <nav class="prog" id="prog" aria-label="فصول العرض"></nav>
+</div>
+
+<div class="ov" id="ov" hidden>
+ <div class="win" role="dialog" aria-modal="true" aria-labelledby="ovt">
+  <header><div><b id="ovt">ديمو</b><small>ديمو حي ببيانات تجريبية — جرّب براحتك، مش بيلمس السيستم الحقيقي</small></div><button id="ovx">رجوع للعرض</button></header>
+  <iframe id="frame" title="ديمو السيستم"></iframe>
+ </div>
+</div>
+
+<script>
+(function () {
+  const CH = ['المقدمة', 'أول مرة', 'يوم الحصة', 'الامتحانات', 'الطلاب والمجموعات', 'الفلوس', 'الرسايل والإشعارات', 'الأسيستنت', 'الطالب وولي الأمر', 'الروابط'];
+  const scenes = [...document.querySelectorAll('.scene')], prog = document.getElementById('prog'), app = document.getElementById('app');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let cur = 0, playing = !reduce, timer = null, t0 = 0, left = 0;
+
+  // شريط التقدم مقسوم بالفصول
+  const bars = [], groups = [];
+  scenes.forEach((s, i) => {
+    const ch = +s.dataset.ch;
+    if (!groups[ch]) { const g = document.createElement('div'); g.className = 'pg'; g.style.flex = scenes.filter(x => +x.dataset.ch === ch).length; g.innerHTML = '<div class="bs"></div><span>' + CH[ch] + '</span>'; g.querySelector('span').onclick = () => go(i); prog.appendChild(g); groups[ch] = g; }
+    const b = document.createElement('button'); b.setAttribute('aria-label', CH[ch] + ' · مشهد ' + (i + 1)); b.innerHTML = '<i></i>'; b.onclick = () => go(i);
+    groups[ch].querySelector('.bs').appendChild(b); bars.push(b);
+  });
+
+  function count(el) {
+    if (reduce) return;
+    const n = +el.dataset.count, suf = el.textContent.replace(/[\d,]/g, ''), st = performance.now();
+    (function f(now) { const p = Math.min(1, Math.max(0, (now - st) / 1100)); el.textContent = Math.round(n * (1 - Math.pow(1 - p, 3))).toLocaleString('en-US') + suf; if (p < 1) requestAnimationFrame(f); })(st);
+  }
+  function arm(ms) { clearTimeout(timer); t0 = Date.now(); left = ms; if (playing) timer = setTimeout(() => go(cur + 1 < scenes.length ? cur + 1 : 0), ms); }
+  function go(i) {
+    scenes[cur].classList.remove('on');
+    cur = (i + scenes.length) % scenes.length;
+    const s = scenes[cur], ch = +s.dataset.ch; void s.offsetWidth; s.classList.add('on'); s.scrollTop = 0;
+    const dur = (+s.dataset.dur || 10);
+    bars.forEach((b, j) => { b.className = j < cur ? 'done' : j === cur ? 'cur' : ''; b.style.setProperty('--dur', dur + 's'); });
+    groups.forEach((g, j) => g.classList.toggle('cur', j === ch));
+    const c = bars[cur].querySelector('i'); c.style.animation = 'none'; void c.offsetWidth; c.style.animation = '';
+    const inCh = scenes.filter(x => +x.dataset.ch === ch), k = inCh.indexOf(s) + 1;
+    document.getElementById('chap').innerHTML = (ch ? '<span class="n">الفصل ' + ch + '</span>' : '') + '<b>' + CH[ch] + '</b>';
+    document.getElementById('count').textContent = k + ' / ' + inCh.length;
+    s.querySelectorAll('[data-count]').forEach(count);
+    arm(dur * 1000);
+  }
+  function setPlay(p) {
+    playing = p; app.classList.toggle('paused', !p); document.querySelector('#pi use').setAttribute('href', p ? '#i-pause' : '#i-play');
+    if (p) arm(left > 0 ? left : 4000); else { clearTimeout(timer); left = Math.max(0, left - (Date.now() - t0)); }
+  }
+  document.getElementById('next').onclick = () => go(cur + 1);
+  document.getElementById('prev').onclick = () => go(cur - 1);
+  document.getElementById('play').onclick = () => setPlay(!playing);
+
+  // الديمو جوه نافذة: السيستم نفسه بـ ?demo=1 (بيانات تجريبية منفصلة)
+  const ov = document.getElementById('ov'), frame = document.getElementById('frame');
+  let was = false;
+  function openDemo(key, title) {
+    was = playing; setPlay(false);
+    document.getElementById('ovt').textContent = 'ديمو: ' + title;
+    frame.src = 'about:blank';
+    setTimeout(() => { frame.src = '../index.html?demo=1#demo-' + key; }, 30);
+    ov.hidden = false; document.getElementById('ovx').focus();
+  }
+  function closeDemo() { ov.hidden = true; frame.src = 'about:blank'; if (was) setPlay(true); }
+  document.addEventListener('click', e => { const b = e.target.closest('[data-demo]'); if (b) openDemo(b.dataset.demo, b.dataset.t || ''); });
+  document.getElementById('ovx').onclick = closeDemo;
+  ov.addEventListener('mousedown', e => { if (e.target === ov) closeDemo(); });
+  document.addEventListener('keydown', e => {
+    if (!ov.hidden) { if (e.key === 'Escape') closeDemo(); return; }
+    if (e.key === 'ArrowLeft' || e.key === 'PageDown') go(cur + 1);
+    else if (e.key === 'ArrowRight' || e.key === 'PageUp') go(cur - 1);
+    else if (e.key === ' ') { e.preventDefault(); setPlay(!playing); }
+  });
+  let sx = null;
+  document.getElementById('stage').addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
+  document.getElementById('stage').addEventListener('touchend', e => { if (sx === null) return; const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 50) go(dx > 0 ? cur + 1 : cur - 1); sx = null; });
+
+  app.classList.toggle('paused', !playing);
+  if (!playing) document.querySelector('#pi use').setAttribute('href', '#i-play');
+  go(0);
+})();
+</script>
+</body>
+</html>

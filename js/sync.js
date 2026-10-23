@@ -5,7 +5,7 @@
 // ?local=1 في الرابط = تجربة على الجهاز من غير ما يلمس الداتابيز.
 window.Sync = (() => {
   const C = window.OA_CONFIG || {};
-  const live = !!(C.SUPABASE_URL && C.SUPABASE_KEY) && !/[?&]local=1(&|$)/.test(location.search);
+  const live = !!(C.SUPABASE_URL && C.SUPABASE_KEY) && !/[?&](local|demo)=1(&|$)/.test(location.search);
   const TK = 'oa_live_token', SNAP = 'oa_live_snap';
   let snap = null, timer = null, busy = false, state = 'ok', pullTimer = null;
   const files = {};

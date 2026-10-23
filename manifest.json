@@ -1,0 +1,11 @@
+{
+  "name": "Mr. Osama Afifi",
+  "short_name": "Osama Afifi",
+  "start_url": "./",
+  "display": "standalone",
+  "dir": "rtl",
+  "lang": "ar",
+  "background_color": "#3A0F34",
+  "theme_color": "#3A0F34",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}

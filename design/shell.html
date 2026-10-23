@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mr. Osama Afifi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800;900&family=Alexandria:wght@600;700;800&family=Tajawal:wght@700;800;900&family=Playfair+Display:wght@900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --aub:#3A0F34;--gold:#EAAA00;--silver:#DDE3E8;
+  --aub-90:#4b1a44;--aub-10:#3a0f341a;--aub-05:#3a0f340d;--gold-20:#eaaa0033;
+  --card:#fff;--line:#3a0f3414;--mu:#7a6577;
+  --r:22px;--sh:0 1px 2px #3a0f340a,0 8px 28px #3a0f3412;
+  --ar:Cairo,system-ui,sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%}
+body{background:var(--silver);color:var(--aub);font-family:var(--ar);font-weight:700;font-size:15px}
+svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+
+/* ===== الهيكل ===== */
+.app{display:grid;grid-template-columns:1fr;min-height:100%}
+.side{display:none}
+.top{position:sticky;top:0;z-index:5;background:var(--aub);color:#fff;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;border-radius:0 0 24px 24px}
+.main{padding:18px 16px 110px;max-width:1240px;width:100%;margin:0 auto}
+.bnav{position:fixed;bottom:12px;left:12px;right:12px;z-index:6;display:flex;justify-content:space-around;background:#ffffffe6;backdrop-filter:blur(14px);border-radius:24px;padding:8px;box-shadow:0 10px 30px #3a0f3426}
+.bnav button{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;color:var(--mu);padding:6px 10px;border-radius:16px;flex:1}
+.bnav button.on{color:var(--aub);background:var(--gold-20)}
+.bnav button.on svg{color:var(--aub)}
+
+/* لوجو */
+.logo{direction:ltr;text-align:center;font-family:'Playfair Display',serif;line-height:1}
+.logo .mr{font-family:var(--ar);font-size:10px;letter-spacing:5px;color:var(--gold);font-weight:800}
+.logo .nm{font-size:26px;font-weight:900;color:#fff}
+.logo .ln{width:38px;height:3px;background:var(--gold);margin:8px auto 5px;border-radius:2px}
+.logo .sb{font-family:var(--ar);font-size:9px;letter-spacing:3px;color:var(--silver)}
+.mini{direction:ltr;font-family:'Playfair Display',serif;font-weight:900;font-size:20px}
+.mini em{font-style:normal;color:var(--gold)}
+.ib{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;background:#ffffff1a;color:#fff}
+
+@media (min-width:900px){
+  .app{grid-template-columns:260px 1fr}
+  .top,.bnav{display:none}
+  .side{display:flex;flex-direction:column;gap:6px;position:sticky;top:0;height:100vh;background:var(--aub);color:#fff;padding:26px 16px;border-radius:0 0 0 0}
+  .side .logo{margin:4px 0 28px}
+  .side a{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;color:#ffffffc0;text-decoration:none;font-size:15px;transition:.2s}
+  .side a:hover{background:#ffffff12;color:#fff}
+  .side a.on{background:var(--gold);color:var(--aub);font-weight:900}
+  .side .me{margin-top:auto;display:flex;align-items:center;gap:10px;background:#ffffff10;border-radius:18px;padding:12px}
+  .side .me b{display:block;font-size:14px}.side .me small{color:var(--silver);font-weight:600;font-size:12px}
+  .main{padding:28px 32px 40px}
+}
+
+/* ===== عناصر ===== */
+.hello{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.hello h1{margin:0;font-size:24px;font-weight:900}
+.hello p{margin:2px 0 0;color:var(--mu);font-weight:600}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:16px;padding:12px 18px;font-weight:800;font-size:15px;transition:transform .15s}
+.btn:active{transform:scale(.96)}
+.btn.gold{background:var(--gold);color:var(--aub);box-shadow:0 8px 20px #eaaa0055}
+.btn.aub{background:var(--aub);color:#fff}
+.btn.ghost{background:var(--card);box-shadow:var(--sh)}
+
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:22px}
+@media (min-width:640px){.kpis{grid-template-columns:repeat(4,1fr)}}
+.k{background:var(--card);border-radius:var(--r);padding:16px;box-shadow:var(--sh);position:relative;overflow:hidden}
+.k .ic{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--aub-05);margin-bottom:12px}
+.k span{color:var(--mu);font-size:13px;font-weight:700}
+.k b{display:block;font-size:26px;font-weight:900;margin-top:2px;letter-spacing:-.5px}
+.k.hl{background:var(--aub);color:#fff}.k.hl .ic{background:#ffffff1a;color:var(--gold)}.k.hl span{color:var(--silver)}
+.k.hl:after{content:'';position:absolute;width:120px;height:120px;border-radius:50%;background:var(--gold);opacity:.18;left:-40px;bottom:-50px}
+
+.grid2{display:grid;gap:18px}
+@media (min-width:1100px){.grid2{grid-template-columns:1.4fr 1fr}}
+.panel{background:var(--card);border-radius:var(--r);padding:18px;box-shadow:var(--sh)}
+.ph{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.ph h2{margin:0;font-size:17px;font-weight:900;display:flex;align-items:center;gap:8px}
+.ph a{color:var(--mu);font-size:13px;text-decoration:none}
+
+.ses{display:flex;align-items:center;gap:14px;padding:12px;border-radius:18px;background:var(--aub-05);margin-bottom:10px}
+.ses .tm{min-width:64px;text-align:center;background:var(--card);border-radius:14px;padding:8px 6px}
+.ses .tm b{display:block;font-size:17px;font-weight:900}.ses .tm small{color:var(--mu);font-size:11px}
+.ses .tx{flex:1;min-width:0}.ses .tx b{display:block;font-size:15px;font-weight:900}
+.ses .tx small{color:var(--mu);font-size:12px;font-weight:600;display:flex;align-items:center;gap:4px}
+.ses .tx small svg{width:14px;height:14px}
+.ses.now{background:var(--card);outline:2px solid var(--gold);box-shadow:0 8px 24px #eaaa0030}
+.live{display:inline-flex;align-items:center;gap:5px;font-size:11px;background:var(--gold);color:var(--aub);border-radius:99px;padding:2px 9px;margin-inline-start:6px;vertical-align:middle}
+.live:before{content:'';width:6px;height:6px;border-radius:50%;background:var(--aub);animation:pl 1.2s infinite}
+@keyframes pl{50%{opacity:.25}}
+.go{width:44px;height:44px;border-radius:14px;background:var(--aub);color:#fff;display:grid;place-items:center}
+.ses.now .go{background:var(--gold);color:var(--aub)}
+
+.wk{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center}
+.wk div{border-radius:14px;padding:10px 2px;font-size:12px;color:var(--mu);background:var(--aub-05)}
+.wk div b{display:block;font-size:18px;color:var(--aub);font-weight:900}
+.wk div.on{background:var(--aub);color:var(--silver)}.wk div.on b{color:var(--gold)}
+.dots{display:flex;gap:3px;justify-content:center;margin-top:4px}.dots i{width:5px;height:5px;border-radius:50%;background:var(--gold)}
+.empty{display:flex;flex-direction:column;align-items:center;gap:8px;padding:22px 10px;color:var(--mu);font-weight:600;text-align:center}
+.empty .ic{width:52px;height:52px;border-radius:18px;display:grid;place-items:center;background:var(--gold-20);color:var(--aub)}
+
+/* ===== تسجيل الحصة ===== */
+.gh{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--card);border-radius:99px;padding:7px 14px;font-size:13px;box-shadow:var(--sh)}
+.chip.on{background:var(--aub);color:#fff}
+.chip svg{width:15px;height:15px}
+.search{display:flex;align-items:center;gap:10px;background:var(--card);border-radius:20px;padding:6px 6px 6px 16px;box-shadow:var(--sh);border:2px solid var(--aub);margin-bottom:14px}
+.search input{flex:1;border:0;outline:0;font:inherit;font-size:16px;padding:10px 0;background:none;color:var(--aub);min-width:0}
+.search input::placeholder{color:#a898a5;font-weight:600}
+.search .btn{padding:10px 14px}
+.stat{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.stat span{background:var(--card);border-radius:14px;padding:8px 14px;font-size:13px;box-shadow:var(--sh)}
+.stat b{font-size:16px;font-weight:900;margin-inline-start:4px}
+.roster{display:grid;gap:10px}
+@media (min-width:700px){.roster{grid-template-columns:1fr 1fr}}
+@media (min-width:1300px){.roster{grid-template-columns:1fr 1fr 1fr}}
+.st{background:var(--card);border-radius:20px;padding:12px;box-shadow:var(--sh)}
+.st .t{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
+.st .av{width:40px;height:40px;border-radius:14px;background:var(--aub-05);display:grid;place-items:center;font-weight:900}
+.st .nm{flex:1;min-width:0}.st .nm b{display:block;font-size:15px;font-weight:900}.st .nm small{color:var(--mu);font-size:12px;font-weight:600}
+.badge{font-size:11px;border-radius:99px;padding:3px 10px;background:var(--aub-05)}
+.badge.ok{background:var(--aub);color:#fff}.badge.no{background:var(--gold-20);color:var(--aub)}
+.acts{display:flex;gap:8px}
+.tog{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;border-radius:14px;padding:11px 0;background:var(--aub-05);color:var(--mu);font-weight:800;font-size:14px}
+.tog svg{width:18px;height:18px}
+.tog.p{background:var(--aub);color:#fff}.tog.a{background:var(--gold);color:var(--aub)}
+.score{display:flex;align-items:center;gap:4px;border:2px dashed var(--aub-10);border-radius:14px;padding:0 10px;font-size:13px;color:var(--mu)}
+.score input{width:34px;border:0;outline:0;font:inherit;font-size:16px;text-align:center;color:var(--aub);background:none}
+.savebar{position:sticky;bottom:96px;margin-top:16px;display:flex;gap:10px}
+.savebar .btn{flex:1;justify-content:center;padding:15px}
+@media (min-width:900px){.savebar{bottom:20px}.savebar .btn{flex:none;padding:14px 26px}}
+.view{display:none}.view.on{display:block}
+footer{text-align:center;color:var(--mu);font-size:11px;letter-spacing:2px;margin-top:26px}
+</style>
+</head>
+<body>
+<!-- أيقونات -->
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
+  <symbol id="check-sq" viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></symbol>
+  <symbol id="users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></symbol>
+  <symbol id="msg" viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.2A8.5 8.5 0 1 1 21 11.5z"/></symbol>
+  <symbol id="wallet" viewBox="0 0 24 24"><path d="M20 12V8H6a2 2 0 0 1 0-4h12v4"/><path d="M4 6v12a2 2 0 0 0 2 2h14v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></symbol>
+  <symbol id="sliders" viewBox="0 0 24 24"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></symbol>
+  <symbol id="search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></symbol>
+  <symbol id="arrow" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></symbol>
+  <symbol id="save" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></symbol>
+  <symbol id="trend" viewBox="0 0 24 24"><path d="m22 7-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/></symbol>
+  <symbol id="cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+  <symbol id="userplus" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></symbol>
+</svg>
+
+<div class="app">
+  <aside class="side">
+    <div class="logo"><div class="mr">MR.</div><div class="nm">Osama Afifi</div><div class="ln"></div><div class="sb">ENGLISH · PREP 1 · 2 · 3</div></div>
+    <a href="?v=home" class="on" data-v="home"><svg class="i"><use href="#home"/></svg>الرئيسية</a>
+    <a href="?v=att" data-v="att"><svg class="i"><use href="#check-sq"/></svg>تسجيل الحصة</a>
+    <a href="#"><svg class="i"><use href="#users"/></svg>الطلاب</a>
+    <a href="#"><svg class="i"><use href="#chart"/></svg>الدرجات</a>
+    <a href="#"><svg class="i"><use href="#msg"/></svg>الرسايل</a>
+    <a href="#"><svg class="i"><use href="#wallet"/></svg>الحسابات</a>
+    <a href="#"><svg class="i"><use href="#sliders"/></svg>الإعدادات</a>
+    <div class="me"><div class="ib" style="background:var(--gold);color:var(--aub);font-weight:900">أ</div><div><b>مستر أسامة عفيفي</b><small>إنجليزي · إعدادي</small></div></div>
+  </aside>
+
+  <div>
+    <header class="top">
+      <div class="mini">Mr. Osama <em>Afifi</em></div>
+      <button class="ib"><svg class="i"><use href="#bell"/></svg></button>
+    </header>
+
+    <main class="main">
+      <!-- الرئيسية -->
+      <section class="view" id="v-home">
+        <div class="hello">
+          <div><h1>صباح الخير يا مستر</h1><p>الاثنين · 3 حصص النهارده</p></div>
+          <button class="btn gold"><svg class="i"><use href="#userplus"/></svg>طالب جديد</button>
+        </div>
+        <div class="kpis">
+          <div class="k hl"><div class="ic"><svg class="i"><use href="#users"/></svg></div><span>الطلاب</span><b>0</b></div>
+          <div class="k"><div class="ic"><svg class="i"><use href="#check-sq"/></svg></div><span>حضروا النهارده</span><b>0</b></div>
+          <div class="k"><div class="ic"><svg class="i"><use href="#trend"/></svg></div><span>إيراد الشهر</span><b>0 ج</b></div>
+          <div class="k"><div class="ic"><svg class="i"><use href="#wallet"/></svg></div><span>صافي الشهر</span><b>0 ج</b></div>
+        </div>
+        <div class="grid2">
+          <div class="panel">
+            <div class="ph"><h2><svg class="i"><use href="#clock"/></svg>حصص النهارده</h2><a href="#">كل المجموعات</a></div>
+            <div class="ses now"><div class="tm"><b>12:00</b><small>لـ 2:00</small></div><div class="tx"><b>تالتة إعدادي <span class="live">دلوقتي</span></b><small><svg class="i"><use href="#pin"/></svg>سنتر الأسس</small></div><a class="go" href="?v=att"><svg class="i"><use href="#arrow"/></svg></a></div>
+            <div class="ses"><div class="tm"><b>2:00</b><small>لـ 3:30</small></div><div class="tx"><b>تانية إعدادي</b><small><svg class="i"><use href="#pin"/></svg>سنتر الأسس</small></div><a class="go" href="?v=att"><svg class="i"><use href="#arrow"/></svg></a></div>
+            <div class="ses"><div class="tm"><b>3:30</b><small>لـ 4:30</small></div><div class="tx"><b>أولى إعدادي</b><small><svg class="i"><use href="#pin"/></svg>سنتر الأسس</small></div><a class="go" href="?v=att"><svg class="i"><use href="#arrow"/></svg></a></div>
+          </div>
+          <div class="panel">
+            <div class="ph"><h2><svg class="i"><use href="#cal"/></svg>الأسبوع</h2></div>
+            <div class="wk">
+              <div>سبت<b>25</b><div class="dots"><i></i></div></div><div>أحد<b>26</b></div><div class="on">اثنين<b>27</b><div class="dots"><i></i><i></i><i></i></div></div><div>تلات<b>28</b><div class="dots"><i></i></div></div><div>أربع<b>29</b></div><div>خميس<b>30</b><div class="dots"><i></i><i></i><i></i></div></div><div>جمعة<b>31</b></div>
+            </div>
+            <div class="empty"><div class="ic"><svg class="i"><use href="#userplus"/></svg></div>لسه مفيش طلاب — ابدأ ضيف أول طالب</div>
+          </div>
+        </div>
+        <footer>POWERED BY HINDAWY</footer>
+      </section>
+
+      <!-- تسجيل الحصة -->
+      <section class="view" id="v-att">
+        <div class="gh">
+          <span class="chip on"><svg class="i"><use href="#check-sq"/></svg>تالتة · الأسس</span>
+          <span class="chip"><svg class="i"><use href="#clock"/></svg>12:00 ← 2:00</span>
+          <span class="chip"><svg class="i"><use href="#cal"/></svg>الاثنين 27/10</span>
+        </div>
+        <div class="search"><svg class="i" style="color:var(--mu)"><use href="#search"/></svg><input placeholder="الكود أو الاسم أو آخر أرقام التليفون"><button class="btn gold"><svg class="i"><use href="#plus"/></svg></button></div>
+        <div class="stat"><span>الطلاب<b>24</b></span><span>حضروا<b>18</b></span><span>غابوا<b>2</b></span><span>دفعوا الشهر<b>20</b></span></div>
+        <div class="roster">
+          <div class="st"><div class="t"><div class="av">أ</div><div class="nm"><b>أحمد محمد علي</b><small>1001</small></div><span class="badge ok">دفع الشهر</span></div>
+            <div class="acts"><button class="tog p"><svg class="i"><use href="#check"/></svg>حضر</button><button class="tog"><svg class="i"><use href="#x"/></svg>غاب</button><label class="score">كويز<input value="9">/10</label></div></div>
+          <div class="st"><div class="t"><div class="av">م</div><div class="nm"><b>مريم السيد حسن</b><small>1002</small></div><span class="badge no">مدفعش</span></div>
+            <div class="acts"><button class="tog"><svg class="i"><use href="#check"/></svg>حضر</button><button class="tog a"><svg class="i"><use href="#x"/></svg>غاب</button><label class="score">كويز<input placeholder="—">/10</label></div></div>
+          <div class="st"><div class="t"><div class="av">ي</div><div class="nm"><b>يوسف خالد إبراهيم</b><small>1003</small></div><span class="badge ok">دفع الشهر</span></div>
+            <div class="acts"><button class="tog"><svg class="i"><use href="#check"/></svg>حضر</button><button class="tog"><svg class="i"><use href="#x"/></svg>غاب</button><label class="score">كويز<input placeholder="—">/10</label></div></div>
+          <div class="st"><div class="t"><div class="av">س</div><div class="nm"><b>سلمى عادل</b><small>1004</small></div><span class="badge ok">دفع الشهر</span></div>
+            <div class="acts"><button class="tog p"><svg class="i"><use href="#check"/></svg>حضر</button><button class="tog"><svg class="i"><use href="#x"/></svg>غاب</button><label class="score">كويز<input value="7">/10</label></div></div>
+        </div>
+        <div class="savebar"><button class="btn gold"><svg class="i"><use href="#save"/></svg>تسجيل اليوم</button></div>
+      </section>
+    </main>
+  </div>
+
+  <nav class="bnav">
+    <button class="on" data-v="home"><svg class="i"><use href="#home"/></svg>الرئيسية</button>
+    <button data-v="att"><svg class="i"><use href="#check-sq"/></svg>الحصة</button>
+    <button><svg class="i"><use href="#users"/></svg>الطلاب</button>
+    <button><svg class="i"><use href="#chart"/></svg>الدرجات</button>
+    <button><svg class="i"><use href="#wallet"/></svg>الحسابات</button>
+  </nav>
+</div>
+<script>
+// عرض مبدئي بس: ?v=home أو ?v=att
+const v = new URLSearchParams(location.search).get('v') || 'home';
+document.getElementById('v-' + v).classList.add('on');
+document.querySelectorAll('[data-v]').forEach(e => {
+  e.classList.toggle('on', e.dataset.v === v);
+  e.addEventListener('click', ev => { ev.preventDefault(); location.search = '?v=' + e.dataset.v; });
+});
+</script>
+</body>
+</html>

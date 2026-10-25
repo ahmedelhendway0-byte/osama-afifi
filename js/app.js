@@ -2,6 +2,7 @@
 const V = {}; // كل شاشة دالة بترجع HTML
 const SES_KEY = (/[?&]demo=1(&|$)/.test(location.search) ? 'oa_ses_demo' : window.Sync && Sync.live ? 'oa_ses_live' : 'oa_ses_v1') + OA_SFX;
 const FAMILY = OA_APP === 'family';
+const HDW_URL = 'https://ahmedelhendway0-byte.github.io/portfolio/'; // موقع HINDAWY
 
 const App = {
   ses: null,   // {role: teacher | assistant | student | parent, id}
@@ -100,7 +101,7 @@ const App = {
       '<div class="me"><div class="ib" style="background:var(--gold);color:var(--aub);font-weight:900">' + U.initial(w[0].replace(/^(مستر|ولي أمر) /, '')) + '</div><div style="flex:1;min-width:0"><b>' + U.esc(w[0]) + '</b><small>' + U.esc(w[1]) + '</small></div>' + N.bell() + '<button class="ib" onclick="App.logout()" title="خروج">' + I('logout', 'sm') + '</button></div></aside>' +
       '<div style="min-width:0"><header class="top mob"><div class="ttl">' + (cur === 'home' || cur === 'portal' ? '<div class="mini">Mr. Osama <em>Afifi</em></div>' : '<b>' + U.esc(title) + '</b>') + '</div><div class="btns">' + (window.Sync ? Sync.badge() : '') + N.bell() +
       (App.staff() ? '' : '<button class="ib" onclick="App.logout()">' + I('logout') + '</button>') + '</div></header>' +
-      '<main class="main">' + body + '<div class="pw">POWERED BY <b>HINDAWY</b></div></main></div>' +
+      '<main class="main">' + body + App.pw('pw') + '</main></div>' +
       (App.staff() ? '<nav class="bnav">' + mob.map(k => { const n = nav.find(x => x[0] === k); return '<a href="#' + k + '" class="' + (k === cur ? 'on' : '') + '">' + I(n[1]) + App.short[k] + '</a>'; }).join('') +
         '<a href="javascript:App.more()" class="' + (more.some(n => n[0] === cur) ? 'on' : '') + '">' + I('grid') + 'المزيد</a></nav>' : '') + '</div>';
   },
@@ -110,6 +111,12 @@ const App = {
       '<button class="k" style="--i:' + nav.length + ';text-align:right" onclick="App.logout()"><div class="ic">' + I('logout') + '</div><b style="font-size:15px">خروج</b></button></div>');
   },
   logout() { if (window.Sync) Sync.logout(); App.setSes(null); App.st = {}; U.close(true); App.go(''); },
+  // POWERED BY HINDAWY في آخر كل شاشة ومع الدخول: الكلمة كبيرة، وتحتها «اعرف أكتر» و«اعرف أكتر عن المؤسسين»، وكلهم بيفتحوا موقع HINDAWY
+  pw(cls) {
+    const a = h => ' href="' + HDW_URL + h + '" target="_blank" rel="noopener"';
+    return '<div class="' + cls + '"><a class="hw"' + a('') + '><small>POWERED BY</small><b>HINDAWY</b></a>' +
+      '<div class="hw-btns"><a' + a('') + '>اعرف أكتر</a><a' + a('#team') + '>اعرف أكتر عن المؤسسين</a></div></div>';
+  },
 
   // ================= الدخول =================
   async login() {
@@ -145,7 +152,7 @@ V.login = () => {
     (sec === 'family' ? '<label class="f">كود الطالب</label><input class="in big ltr" name="u" inputmode="numeric" placeholder="1001" autocomplete="username" required>' : '') +
     '<label class="f">' + (sec === 'family' ? 'الرقم السري' : 'الباسورد') + '</label><input class="in big ltr" name="p" type="password" inputmode="' + (sec === 'family' ? 'numeric' : 'text') + '" autocomplete="current-password" required>' +
     '<p class="hint">' + (sec === 'family' ? 'الكود والرقم السري بيوصلوك من المستر. كل طالب ليه رقم سري مختلف.' : r === 'teacher' ? 'باسورد المستر.' : 'الباسورد اللي المستر إداهولك.') + '</p>' +
-    '<button class="btn aub wide" style="margin-top:18px">دخول ' + I('go') + '</button></form>' + Inst.btn() + '</div><div class="pw-foot">POWERED BY HINDAWY</div></div></div>';
+    '<button class="btn aub wide" style="margin-top:18px">دخول ' + I('go') + '</button></form>' + Inst.btn() + '</div>' + App.pw('pw-foot') + '</div></div>';
 };
 
 // ======================= تثبيت التطبيق على الموبايل =======================
